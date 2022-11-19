@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { Container } from 'react-bootstrap'
+import DonarsScreen from './screens/DonarsScreen'
+import RequestFeedScreen from './screens/RequestFeedScreen'
+import FaqScreen from './screens/FaqScreen'
+import HomeScreen from './screens/HomeScreen'
+import RequestPage from './screens/RequestScreen'
+import DonarProfileScreen from './screens/DonarDetailsScreen'
+import RequestDetailsScreen from './screens/RequestDetailsScreen'
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <BrowserRouter>
+      <main>
+        <Container>
+          <Routes>
+            <Route path='/' element={<HomeScreen />} />
+            <Route path='/request' element={<RequestPage />} />
+            <Route path='/feed' element={<RequestFeedScreen />} />
+            <Route path='/feed/:id' element={<RequestDetailsScreen />} />
+            <Route path='/donars' element={<DonarsScreen />} />
+            <Route path='/donars/:id' element={<DonarProfileScreen />} />
+            <Route path='/faq' element={<FaqScreen />} />
+            {/* <Route path='/contact' element={<ContactPage />} /> */}
+            {/* <Route path='/login' element={<LoginPage />} /> */}
+            {/* <Route path='/register' element={<RegisterPage />} /> */}
+            {/* <Route path='/profile' element={<ProfilePage />} /> */}
+          </Routes>
+        </Container>
+      </main>
+    </BrowserRouter>
+  )
 }
 
-export default App;
+export default App

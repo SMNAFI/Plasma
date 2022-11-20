@@ -125,7 +125,7 @@ const RequestPage = () => {
             ></Form.Control>
           </Form.Group>
 
-          <Form.Group controlId='date' className='mb-3'>
+          <Form.Group controlId='lastDonation' className='mb-3'>
             <Form.Label>Date</Form.Label>
             <Form.Control
               type='date'

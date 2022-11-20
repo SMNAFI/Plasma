@@ -1,13 +1,15 @@
 import { initializeApp } from 'firebase/app'
 import { getFirestore } from 'firebase/firestore'
+import { getAuth } from 'firebase/auth'
+
 const firebaseConfig = {
-  apiKey: 'AIzaSyBcysMawq9IcIavwqfFhrh-GxhbJZPY6ys',
-  authDomain: 'blood-donation-8e1f2.firebaseapp.com',
-  projectId: 'blood-donation-8e1f2',
-  storageBucket: 'blood-donation-8e1f2.appspot.com',
-  messagingSenderId: '780644497297',
-  appId: '1:780644497297:web:3e5d2f79d397be1b854c30',
-  measurementId: 'G-1S8W0VCS18',
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGE_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
+  measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 }
 
 // Initialize Firebase
@@ -15,3 +17,4 @@ const app = initializeApp(firebaseConfig)
 
 // Initialize Cloud Firestore and get a reference to the service
 export const db = getFirestore(app)
+export const auth = getAuth(app)

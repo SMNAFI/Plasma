@@ -1,0 +1,2 @@
+export const USER_INFO_SET = 'USER_INFO_SET'
+export const USER_INFO_REMOVE = 'USER_INFO_REMOVE'

@@ -53,14 +53,15 @@ const RequestPage = () => {
 
   return (
     <>
-      <h1 className='text-center my-5'>Request for blood</h1>
       <FormContainer>
+        <h1 className='text-center my-5'>Request for blood</h1>
+
         {success && <Message>Request posted successfully</Message>}
         {error && <Message variant='danger'>{error}</Message>}
         {loading && <Loader />}
 
-        <Form onSubmit={submitHandler} className='mb-5'>
-          <Form.Group controlId='problem'>
+        <Form onSubmit={submitHandler} className='my-5'>
+          <Form.Group controlId='problem' className='mb-3'>
             <Form.Label>Problem</Form.Label>
             <Form.Control
               as='textarea'
@@ -71,7 +72,7 @@ const RequestPage = () => {
             ></Form.Control>
           </Form.Group>
 
-          <Form.Group controlId='bloodGroup'>
+          <Form.Group controlId='bloodGroup' className='mb-3'>
             <Form.Label>Required Blood Group</Form.Label>
             <Form.Select
               value={bloodGroup}
@@ -90,7 +91,7 @@ const RequestPage = () => {
             </Form.Select>
           </Form.Group>
 
-          <Form.Group controlId='numBag'>
+          <Form.Group controlId='numBag' className='mb-3'>
             <Form.Label>Required number of bages</Form.Label>
             <Form.Control
               type='number'
@@ -102,7 +103,7 @@ const RequestPage = () => {
             ></Form.Control>
           </Form.Group>
 
-          <Form.Group controlId='location'>
+          <Form.Group controlId='location' className='mb-3'>
             <Form.Label>Location</Form.Label>
             <Form.Control
               type='text'
@@ -113,7 +114,7 @@ const RequestPage = () => {
             ></Form.Control>
           </Form.Group>
 
-          <Form.Group controlId='time'>
+          <Form.Group controlId='time' className='mb-3'>
             <Form.Label>Time</Form.Label>
             <Form.Control
               type='time'
@@ -124,7 +125,7 @@ const RequestPage = () => {
             ></Form.Control>
           </Form.Group>
 
-          <Form.Group controlId='date'>
+          <Form.Group controlId='date' className='mb-3'>
             <Form.Label>Date</Form.Label>
             <Form.Control
               type='date'
@@ -135,7 +136,7 @@ const RequestPage = () => {
             ></Form.Control>
           </Form.Group>
 
-          <Form.Group controlId='contact'>
+          <Form.Group controlId='contact' className='mb-3'>
             <Form.Label>Contact Number</Form.Label>
             <Form.Control
               type='text'
@@ -148,7 +149,7 @@ const RequestPage = () => {
             ></Form.Control>
           </Form.Group>
 
-          <Button type='submit' varient='primary' className='mt-3'>
+          <Button type='submit' varient='primary'>
             Submit your request
           </Button>
         </Form>

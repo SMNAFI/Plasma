@@ -43,12 +43,11 @@ const LoginScreen = () => {
       )
 
       const { user } = userCredential
-      // console.log(user)
 
       const res = await getDoc(doc(db, 'users', user.uid))
       // console.log(res.id, res.data())
 
-      dispatch(setUser(user.uid, user.email, res.data()))
+      dispatch(setUser({ uid: user.uid, ...res.data() }))
       setLoading(false)
     } catch (error) {
       setLoading(false)

@@ -1,56 +1,102 @@
 import React, { useEffect, useState } from 'react'
+import { doc, getDoc, setDoc } from 'firebase/firestore'
 import { Button, Col, Form, Row } from 'react-bootstrap'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { db } from './../firebase'
+import Message from '../components/Message'
+import Loader from '../components/Loader'
+import { setUser } from '../actions/userActions'
 
 const ProfileScreen = () => {
   const userDetails = useSelector((state) => state.userDetails)
   const { userInfo } = userDetails
+  const dispatch = useDispatch()
   const navigate = useNavigate()
-  useEffect(() => {
-    if (!userInfo) {
-      navigate('/login')
-    }
-  }, [navigate, userInfo])
 
   const [name, setName] = useState(userInfo ? userInfo.name : '')
   const [phone, setPhone] = useState(userInfo ? userInfo.phone : '')
   const [bloodGroup, setBloodGroup] = useState(
-    userInfo
-      ? userInfo.bloodGroup
-        ? userInfo.bloodGroup
-        : 'Select your blood group'
-      : 'Select your blood group'
+    userInfo ? userInfo.bloodGroup : ''
   )
-  const [donar, setDonar] = useState(userInfo ? userInfo.isDonar : false)
+  const [isDonar, setIsDonar] = useState(userInfo ? userInfo.isDonar : false)
+  const [status, setStatus] = useState(userInfo ? userInfo.status : '')
   const [lastDonation, setLastDonation] = useState(
     userInfo ? userInfo.lastDonation : ''
   )
   const [numDonation, setNumDonation] = useState(
     userInfo ? userInfo.numDonation : 0
   )
-  const [address, setAddress] = useState(userInfo ? userInfo.address : '')
+  const [area, setArea] = useState(userInfo ? userInfo.area : '')
   const [district, setDistrict] = useState(userInfo ? userInfo.district : '')
-  const [division, setDivision] = useState(userInfo ? userInfo.division : '')
-  //   const [isAvailable, setIsAvailable] = useState(
-  //     userInfo.isAvailable ? userInfo.isAvailable : false
-  //   )
   const [response] = useState(userInfo ? userInfo.response : 0)
 
-  const updateHandler = (e) => {
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+  const [success, setSuccess] = useState(false)
+
+  useEffect(() => {
+    if (!userInfo) {
+      navigate('/login')
+    }
+    if (status === 'Want to donate') {
+      setIsDonar(true)
+    } else {
+      setIsDonar(false)
+    }
+  }, [navigate, userInfo, status])
+
+  const updateHandler = async (e) => {
     e.preventDefault()
-    console.log('Update')
-    console.log(e)
+
+    try {
+      setLoading(true)
+      setError(null)
+      setSuccess(false)
+
+      await setDoc(
+        doc(db, 'users', userInfo.uid),
+        {
+          name,
+          phone,
+          bloodGroup,
+          status,
+          numDonation,
+          lastDonation,
+          area,
+          district,
+          isDonar,
+        },
+        { merge: true }
+      )
+      // getting back user data
+      const res = await getDoc(doc(db, 'users', userInfo.uid))
+      // console.log(res.data())
+
+      dispatch(setUser({ uid: userInfo.uid, ...res.data() }))
+
+      setLoading(false)
+      setSuccess(true)
+    } catch (error) {
+      setLoading(false)
+      setError(error.message)
+      console.log(error.message)
+    }
   }
 
   return (
-    <>
+    <section className='my-5'>
       <h1 className='my-5 text-center'>
         Welcome, {userInfo ? userInfo.name : ''}
       </h1>
       <h4 className='my-5 text-center'>
         You have respond to {response} request
       </h4>
+
+      {success && <Message>Profile updated successfully</Message>}
+      {error && <Message variant='danger'>{error}</Message>}
+      {loading && <Loader />}
+
       <Form onSubmit={updateHandler}>
         <Row>
           <Col lg={6}>
@@ -73,41 +119,60 @@ const ProfileScreen = () => {
                 onChange={(e) => setPhone(e.target.value)}
                 pattern='[0-9]{11}'
                 title='11 digits phone number'
-                required={donar}
+                required={isDonar}
               ></Form.Control>
             </Form.Group>
           </Col>
         </Row>
 
-        <Form.Group controlId='bloodGroup' className='my-3'>
-          <Form.Label>Blood Group</Form.Label>
-          <Form.Select
-            value={bloodGroup}
-            size='sm'
-            onChange={(e) => setBloodGroup(e.target.value)}
-            required={donar}
-          >
-            <option>Select your blood group</option>
-            <option>A+</option>
-            <option>A-</option>
-            <option>B+</option>
-            <option>B-</option>
-            <option>AB+</option>
-            <option>AB-</option>
-            <option>O+</option>
-            <option>O-</option>
-          </Form.Select>
-        </Form.Group>
+        <Row>
+          <Col lg={6}>
+            <Form.Group controlId='bloodGroup' className='my-3'>
+              <Form.Label>Blood Group</Form.Label>
+              <Form.Select
+                value={bloodGroup}
+                size='sm'
+                onChange={(e) => setBloodGroup(e.target.value)}
+                required={isDonar}
+              >
+                <option></option>
+                <option>A+</option>
+                <option>A-</option>
+                <option>B+</option>
+                <option>B-</option>
+                <option>AB+</option>
+                <option>AB-</option>
+                <option>O+</option>
+                <option>O-</option>
+              </Form.Select>
+            </Form.Group>
+          </Col>
+          <Col lg={6}>
+            <Form.Group controlId='status' className='my-3'>
+              <Form.Label>Status</Form.Label>
+              <Form.Select
+                value={status}
+                size='sm'
+                onChange={(e) => setStatus(e.target.value)}
+                required={true}
+              >
+                <option></option>
+                <option>Want to donate</option>
+                <option>Not available now</option>
+              </Form.Select>
+            </Form.Group>
+          </Col>
+        </Row>
 
-        <Form.Group controlId='donar' className='my-3'>
+        {/* <Form.Group controlId='isDonar' className='my-3'>
           <Form.Check
             type='switch'
             id='custom-switch'
-            label='Want to be a donar?'
-            checked={donar}
-            onChange={(e) => setDonar(e.target.checked)}
+            label='Want to be a isDonar?'
+            checked={isDonar}
+            onChange={(e) => setisDonar(e.target.checked)}
           />
-        </Form.Group>
+        </Form.Group> */}
 
         <Row>
           <Col lg={6}>
@@ -137,19 +202,19 @@ const ProfileScreen = () => {
         </Row>
 
         <Row>
-          <Col md={6} lg={4}>
-            <Form.Group controlId='address' className='my-3'>
-              <Form.Label>Address</Form.Label>
+          <Col lg={6}>
+            <Form.Group controlId='area' className='my-3'>
+              <Form.Label>Area</Form.Label>
               <Form.Control
                 type='text'
-                placeholder='Address'
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                required={donar}
+                placeholder='Area'
+                value={area}
+                onChange={(e) => setArea(e.target.value)}
+                required={isDonar}
               ></Form.Control>
             </Form.Group>
           </Col>
-          <Col md={6} lg={4}>
+          <Col lg={6}>
             <Form.Group controlId='district' className='my-3'>
               <Form.Label>District</Form.Label>
               <Form.Control
@@ -157,19 +222,7 @@ const ProfileScreen = () => {
                 placeholder='district'
                 value={district}
                 onChange={(e) => setDistrict(e.target.value)}
-                required={donar}
-              ></Form.Control>
-            </Form.Group>
-          </Col>
-          <Col md={6} lg={4}>
-            <Form.Group controlId='division' className='my-3'>
-              <Form.Label>Division</Form.Label>
-              <Form.Control
-                type='text'
-                placeholder='division'
-                value={division}
-                onChange={(e) => setDivision(e.target.value)}
-                required={donar}
+                required={isDonar}
               ></Form.Control>
             </Form.Group>
           </Col>
@@ -179,7 +232,7 @@ const ProfileScreen = () => {
           Update Profile
         </Button>
       </Form>
-    </>
+    </section>
   )
 }
 

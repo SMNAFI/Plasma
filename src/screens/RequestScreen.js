@@ -1,14 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 import FormContainer from '../components/FormContainer'
 import Message from './../components/Message'
 import { Button, Form } from 'react-bootstrap'
 import { db } from './../firebase'
 import Loader from './../components/Loader'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 const RequestPage = () => {
   const [problem, setProblem] = useState('')
-  const [bloodGroup, setBloodGroup] = useState('A+')
+  const [bloodGroup, setBloodGroup] = useState('')
   const [time, setTime] = useState('')
   const [date, setDate] = useState('')
   const [numBag, setNumBag] = useState(1)
@@ -18,11 +20,21 @@ const RequestPage = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
+  const userDetails = useSelector((state) => state.userDetails)
+  const { userInfo } = userDetails
+  const navigate = useNavigate()
+  useEffect(() => {
+    if (!userInfo) {
+      navigate('/login')
+    }
+  }, [navigate, userInfo])
+
   const submitHandler = async (e) => {
     e.preventDefault()
     setLoading(true)
     try {
-      const res = await addDoc(collection(db, 'requests'), {
+      await addDoc(collection(db, 'requests'), {
+        uid: userInfo.uid,
         problem,
         bloodGroup,
         location,
@@ -31,7 +43,8 @@ const RequestPage = () => {
         time,
         date,
         numManaged: 0,
-        response: 0,
+        isManaged: false,
+        response: [],
         timestamp: serverTimestamp(),
       })
       setProblem('')
@@ -44,7 +57,7 @@ const RequestPage = () => {
       setDate('')
       setLoading(false)
       setSuccess(true)
-      console.log(res)
+      // console.log(res)
     } catch (error) {
       setError(error)
       console.log(error)
@@ -80,6 +93,7 @@ const RequestPage = () => {
               onChange={(e) => setBloodGroup(e.target.value)}
               required={true}
             >
+              <option></option>
               <option>A+</option>
               <option>A-</option>
               <option>B+</option>

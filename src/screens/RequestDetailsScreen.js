@@ -31,6 +31,7 @@ function RequestDetailsScreen() {
         //   console.log('Current data: ', doc.data())
         setLoading(false)
         setRequestInfo({ id: doc.id, ...doc.data() })
+        // console.log(doc.data().response.length)
       },
       (error) => {
         console.log(error)
@@ -67,7 +68,7 @@ function RequestDetailsScreen() {
               <Card.Text>Contuct Number: {contact}</Card.Text>
               <Card.Text>Location: {location}</Card.Text>
               <Card.Text>Bag managed: {numManaged}</Card.Text>
-              <Card.Text>Total response: {response}</Card.Text>
+              <Card.Text>Total response: {response.length}</Card.Text>
             </Card.Body>
             <Button>Response to the request</Button>
           </Card>

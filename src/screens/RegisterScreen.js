@@ -54,16 +54,35 @@ const RegisterScreen = () => {
         // storing user into firestore
         await setDoc(doc(db, 'users', user.uid), {
           name,
+          email: user.email,
+          phone: '',
+          bloodGroup: '',
+          status: '',
           isDonar: false,
           isAdmin: false,
+          numDonation: 0,
+          area: '',
+          district: '',
+          lastDonation: '',
+          response: 0,
           timeStamp: serverTimestamp(),
         })
 
         dispatch(
-          setUser(user.uid, user.email, {
+          setUser({
+            uid: user.uid,
+            email: user.email,
             name,
+            phone: '',
+            bloodGroup: '',
+            status: '',
             isDonar: false,
             isAdmin: false,
+            numDonation: 0,
+            area: '',
+            district: '',
+            lastDonation: '',
+            response: 0,
           })
         )
 

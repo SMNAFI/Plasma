@@ -1,16 +1,12 @@
 import { USER_INFO_SET, USER_INFO_REMOVE } from '../constants/userConstants'
 
-export const setUser = (uid, email, data) => async (dispatch) => {
-  const { name, isAdmin, isDonar } = data
-  // console.log(uid, email, data)
+export const setUser = (data) => async (dispatch) => {
+  console.log(data)
   dispatch({
     type: USER_INFO_SET,
-    payload: { uid, email, name, isAdmin, isDonar },
+    payload: data,
   })
-  localStorage.setItem(
-    'userInfo',
-    JSON.stringify({ uid, email, name, isAdmin, isDonar })
-  )
+  localStorage.setItem('userInfo', JSON.stringify(data))
 }
 
 export const removeUser = () => async (dispatch) => {

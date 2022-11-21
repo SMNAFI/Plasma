@@ -5,12 +5,18 @@ import { useParams } from 'react-router-dom'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { Button, Card } from 'react-bootstrap'
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 function RequestDetailsScreen() {
   const { id } = useParams()
   const [requestInfo, setRequestInfo] = useState({})
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+
+  const userDetails = useSelector((state) => state.userDetails)
+  const { userInfo } = userDetails
+
   const {
     problem,
     bloodGroup,
@@ -22,6 +28,7 @@ function RequestDetailsScreen() {
     numManaged,
     response,
     isManaged,
+    uid,
   } = requestInfo
 
   useEffect(() => {
@@ -70,7 +77,15 @@ function RequestDetailsScreen() {
               <Card.Text>Bag managed: {numManaged}</Card.Text>
               <Card.Text>Total response: {response.length}</Card.Text>
             </Card.Body>
-            <Button>Response to the request</Button>
+            {uid === userInfo.uid ? (
+              <Link to={`/feed/${id}/edit`}>
+                <h2>
+                  <i className='fa-solid fa-pen-to-square'></i>
+                </h2>
+              </Link>
+            ) : (
+              <Button>Respose to this request</Button>
+            )}
           </Card>
         </>
       )}

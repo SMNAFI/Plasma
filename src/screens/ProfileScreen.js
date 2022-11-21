@@ -131,7 +131,6 @@ const ProfileScreen = () => {
               <Form.Label>Blood Group</Form.Label>
               <Form.Select
                 value={bloodGroup}
-                size='sm'
                 onChange={(e) => setBloodGroup(e.target.value)}
                 required={isDonar}
               >

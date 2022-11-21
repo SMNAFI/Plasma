@@ -5,17 +5,8 @@ import { Link } from 'react-router-dom'
 
 const Donar = ({ donar }) => {
   // console.log(donar)
-  const {
-    id,
-    name,
-    phone,
-    address,
-    district,
-    division,
-    bloodGroup,
-    numDonation,
-    response,
-  } = donar
+  const { id, name, phone, area, district, bloodGroup, numDonation, response } =
+    donar
   return (
     <Card className='my-3 p-3 rounded'>
       <Card.Body>
@@ -30,7 +21,7 @@ const Donar = ({ donar }) => {
         <Card.Text>Total Donation: {numDonation}</Card.Text>
         <Card.Text>Phone Number: {phone}</Card.Text>
         <Card.Text>
-          Address: {address}, {district}, {division}
+          Address: {area}, {district}
         </Card.Text>
       </Card.Body>
     </Card>

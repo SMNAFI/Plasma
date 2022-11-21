@@ -12,6 +12,7 @@ import Header from './components/Header'
 import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import ProfileScreen from './screens/ProfileScreen'
+import RequestEditScreen from './screens/RequestEditScreen'
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
             <Route path='/request' element={<RequestPage />} />
             <Route path='/feed' element={<RequestFeedScreen />} />
             <Route path='/feed/:id' element={<RequestDetailsScreen />} />
+            <Route path='/feed/:id/edit' element={<RequestEditScreen />} />
             <Route path='/donars' element={<DonarsScreen />} />
             <Route path='/donars/:id' element={<DonarProfileScreen />} />
             <Route path='/faq' element={<FaqScreen />} />

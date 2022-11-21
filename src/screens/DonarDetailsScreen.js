@@ -11,16 +11,8 @@ function DonarProfileScreen() {
   const [donarInfo, setDonarInfo] = useState({})
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const {
-    name,
-    phone,
-    bloodGroup,
-    address,
-    district,
-    division,
-    response,
-    numDonation,
-  } = donarInfo
+  const { name, phone, bloodGroup, area, district, response, numDonation } =
+    donarInfo
 
   useEffect(() => {
     const unsub = onSnapshot(
@@ -60,7 +52,7 @@ function DonarProfileScreen() {
             <Card.Text>Total Donation: {numDonation}</Card.Text>
             <Card.Text>Phone Number: {phone}</Card.Text>
             <Card.Text>
-              Address: {address}, {district}, {division}
+              Address: {area}, {district}
             </Card.Text>
           </Card.Body>
         </Card>

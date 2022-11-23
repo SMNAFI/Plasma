@@ -13,3 +13,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.btn-google {
+  border: none;
+  border-radius: 2px;
+  padding: 10px 20px;
+}

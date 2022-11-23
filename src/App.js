@@ -13,6 +13,7 @@ import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import ProfileScreen from './screens/ProfileScreen'
 import RequestEditScreen from './screens/RequestEditScreen'
+import ContactUsScreen from './screens/ContactUsScreen'
 
 const App = () => {
   return (
@@ -29,7 +30,7 @@ const App = () => {
             <Route path='/donars' element={<DonarsScreen />} />
             <Route path='/donars/:id' element={<DonarProfileScreen />} />
             <Route path='/faq' element={<FaqScreen />} />
-            {/* <Route path='/contact' element={<ContactPage />} /> */}
+            <Route path='/contact' element={<ContactUsScreen />} />
             <Route path='/login' element={<LoginScreen />} />
             <Route path='/register' element={<RegisterScreen />} />
             <Route path='/profile' element={<ProfileScreen />} />

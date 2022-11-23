@@ -1,7 +1,7 @@
 import { USER_INFO_SET, USER_INFO_REMOVE } from '../constants/userConstants'
 
 export const setUser = (data) => async (dispatch) => {
-  console.log(data)
+  // console.log(data)
   dispatch({
     type: USER_INFO_SET,
     payload: data,

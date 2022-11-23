@@ -39,7 +39,7 @@ const Donar = ({ request }) => {
         <Card.Text>Contuct Number: {contact}</Card.Text>
         <Card.Text>Location: {location}</Card.Text>
         <Card.Text>Bag managed: {numManaged}</Card.Text>
-        <Card.Text>Total response: {response}</Card.Text>
+        <Card.Text>Total response: {response.length}</Card.Text>
       </Card.Body>
       <Link to={`/feed/${id}`}>
         <Button>Details</Button>

@@ -14,7 +14,7 @@ import { db } from './../firebase'
 const LoginScreen = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [message, setMessage] = useState(null)
+  const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate()
@@ -34,33 +34,50 @@ const LoginScreen = () => {
     e.preventDefault()
 
     setLoading(true)
-    setMessage(null)
+    setError(null)
     try {
       const userCredential = await signInWithEmailAndPassword(
         auth,
         email,
         password
       )
-
       const { user } = userCredential
 
       const res = await getDoc(doc(db, 'users', user.uid))
-      // console.log(res.id, res.data())
 
       dispatch(setUser({ uid: user.uid, ...res.data() }))
       setLoading(false)
     } catch (error) {
       setLoading(false)
-      setMessage(error.message)
-      console.error(error.message)
+      setError(error.error)
+      console.error(error.error)
     }
   }
+
+  // const googleSignIn = async () => {
+  //   try {
+  //     setError(null)
+  //     const data = await signInWithPopup(auth, provider)
+  //     const { user } = data
+
+  //     setLoading(true)
+
+  //     const res = await getDoc(doc(db, 'users', user.uid))
+
+  //     dispatch(setUser({ uid: user.uid, ...res.data() }))
+  //     setLoading(false)
+  //   } catch (error) {
+  //     setLoading(false)
+  //     setError(error.error)
+  //     console.log(error.code, error.error)
+  //   }
+  // }
 
   return (
     <FormContainer>
       <h1 className='text-center my-5'>Sign In</h1>
 
-      {message && <Message variant='danger'>{message}</Message>}
+      {error && <Message variant='danger'>{error}</Message>}
       {loading && <Loader />}
 
       <Form onSubmit={submitHandler} className='my-5'>
@@ -99,6 +116,12 @@ const LoginScreen = () => {
           </Col>
         </Row>
       </Form>
+
+      {/* <div className='text-center my-5'>
+        <button className='btn-google' onClick={googleSignIn}>
+          <i className='fa-brands fa-google'></i> Sign in with google
+        </button>
+      </div> */}
     </FormContainer>
   )
 }

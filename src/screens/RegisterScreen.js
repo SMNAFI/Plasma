@@ -16,7 +16,7 @@ const RegisterScreen = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [message, setMessage] = useState(null)
+  const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate()
@@ -36,10 +36,10 @@ const RegisterScreen = () => {
     e.preventDefault()
 
     if (password !== confirmPassword) {
-      setMessage('Password do not match')
+      setError('Password do not match')
     } else {
       setLoading(true)
-      setMessage(null)
+      setError(null)
 
       try {
         // register user
@@ -55,6 +55,7 @@ const RegisterScreen = () => {
         await setDoc(doc(db, 'users', user.uid), {
           name,
           email: user.email,
+          photoURL: '',
           phone: '',
           bloodGroup: '',
           status: '',
@@ -73,6 +74,7 @@ const RegisterScreen = () => {
             uid: user.uid,
             email: user.email,
             name,
+            photoURL: '',
             phone: '',
             bloodGroup: '',
             status: '',
@@ -89,20 +91,74 @@ const RegisterScreen = () => {
         setLoading(false)
       } catch (error) {
         setLoading(false)
-        setMessage(error.message)
+        setError(error.message)
         console.error(error.message)
       }
     }
   }
 
+  // const googleSignUp = async () => {
+  //   try {
+  //     setError(null)
+  //     const res = await signInWithPopup(auth, provider)
+
+  //     const { user } = res
+  //     const { uid, displayName, email, photoURL } = user
+
+  //     setLoading(true)
+
+  //     // storing user into firestore
+  //     await setDoc(doc(db, 'users', uid), {
+  //       name: displayName,
+  //       email,
+  //       photoURL,
+  //       phone: '',
+  //       bloodGroup: '',
+  //       status: '',
+  //       isDonar: false,
+  //       isAdmin: false,
+  //       numDonation: 0,
+  //       area: '',
+  //       district: '',
+  //       lastDonation: '',
+  //       response: 0,
+  //       timeStamp: serverTimestamp(),
+  //     })
+
+  //     dispatch(
+  //       setUser({
+  //         uid,
+  //         email,
+  //         name: displayName,
+  //         photoURL,
+  //         phone: '',
+  //         bloodGroup: '',
+  //         status: '',
+  //         isDonar: false,
+  //         isAdmin: false,
+  //         numDonation: 0,
+  //         area: '',
+  //         district: '',
+  //         lastDonation: '',
+  //         response: 0,
+  //       })
+  //     )
+  //     setLoading(false)
+  //   } catch (error) {
+  //     setLoading(false)
+  //     setError(error.message)
+  //     console.log(error.code, error.message)
+  //   }
+  // }
+
   return (
     <FormContainer>
       <h1 className='text-center my-5'>Sign Up</h1>
 
-      {message && <Message variant='danger'>{message}</Message>}
+      {error && <Message variant='danger'>{error}</Message>}
       {loading && <Loader />}
 
-      <Form onSubmit={submitHandler} className='my-5'>
+      <Form onSubmit={submitHandler} className='mt-5'>
         <Form.Group controlId='name' className='mb-3'>
           <Form.Label>Name</Form.Label>
           <Form.Control
@@ -165,6 +221,12 @@ const RegisterScreen = () => {
           </Col>
         </Row>
       </Form>
+
+      {/* <div className='text-center my-5'>
+        <button className='btn-google' onClick={googleSignUp}>
+          <i className='fa-brands fa-google'></i> Sign up with google
+        </button>
+      </div> */}
     </FormContainer>
   )
 }

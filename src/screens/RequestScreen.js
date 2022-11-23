@@ -127,10 +127,21 @@ const RequestPage = () => {
             ></Form.Control>
           </Form.Group>
 
-          <Form.Group controlId='time' className='mb-3'>
+          {/* <Form.Group controlId='time' className='mb-3'>
             <Form.Label>Time</Form.Label>
             <Form.Control
               type='time'
+              placeholder='Time'
+              value={time}
+              onChange={(e) => setTime(e.target.value)}
+              required={true}
+            ></Form.Control>
+          </Form.Group> */}
+
+          <Form.Group controlId='time' className='mb-3'>
+            <Form.Label>Time</Form.Label>
+            <Form.Control
+              type='string'
               placeholder='Time'
               value={time}
               onChange={(e) => setTime(e.target.value)}

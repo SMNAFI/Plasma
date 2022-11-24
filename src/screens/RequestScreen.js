@@ -45,7 +45,7 @@ const RequestPage = () => {
         date,
         numManaged: 0,
         isManaged: false,
-        timestamp: serverTimestamp(),
+        createdAt: serverTimestamp(),
       })
       setProblem('')
       setBloodGroup('A+')

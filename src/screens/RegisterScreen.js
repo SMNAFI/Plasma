@@ -127,7 +127,7 @@ const RegisterScreen = () => {
           district: '',
           lastDonation: '',
           response: 0,
-          timeStamp: serverTimestamp(),
+          createdAt: serverTimestamp(),
         })
 
         // now userInfo is in the database

@@ -2,6 +2,7 @@ import React from 'react'
 import { Button, Card } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import moment from 'moment'
 
 const Donar = ({ request }) => {
   // console.log(request)
@@ -20,6 +21,7 @@ const Donar = ({ request }) => {
     location,
     district,
     numManaged,
+    timestamp,
     // response,
   } = request
   return (
@@ -42,7 +44,12 @@ const Donar = ({ request }) => {
           Location: {location}, {district}
         </Card.Text>
         <Card.Text>Bag managed: {numManaged}</Card.Text>
-        {/* <Card.Text>Total response: {response.length}</Card.Text> */}
+        <Card.Text>
+          <small>{new Date(timestamp?.toDate()).toLocaleString()}</small>
+        </Card.Text>
+        <Card.Text>
+          <small>{moment(timestamp?.toDate()).fromNow()}</small>
+        </Card.Text>
       </Card.Body>
       <Link to={`/feed/${id}`}>
         <Button>Details</Button>

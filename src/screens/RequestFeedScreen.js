@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { collection, onSnapshot } from 'firebase/firestore'
+import { collection, onSnapshot, orderBy, query } from 'firebase/firestore'
 import { db } from '../firebase'
 import { Col, Form, Row } from 'react-bootstrap'
 import Loader from '../components/Loader'
@@ -12,8 +12,12 @@ const RequestFeedScreen = () => {
   const [error, setError] = useState(null)
 
   useEffect(() => {
+    const colRef = collection(db, 'requests')
+    // const q = query(colRef, orderBy('createdAt', 'desc'))
+    const q = query(colRef, orderBy('timestamp', 'desc'))
+
     const unsub = onSnapshot(
-      collection(db, 'requests'),
+      q,
       (snapShot) => {
         let list = []
 
@@ -22,11 +26,9 @@ const RequestFeedScreen = () => {
         })
         setRequests(list)
         setLoading(false)
-        // console.log(list)
       },
       (error) => {
         setError(error)
-        // console.log(error)
       }
     )
 

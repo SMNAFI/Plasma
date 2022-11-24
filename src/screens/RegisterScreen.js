@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
-import { doc, serverTimestamp, setDoc } from 'firebase/firestore'
+import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore'
 import { auth, provider } from '../firebase'
 import { Link, useNavigate } from 'react-router-dom'
 import FormContainer from '../components/FormContainer'
@@ -97,39 +97,25 @@ const RegisterScreen = () => {
     }
   }
 
-  const googleSignUp = async () => {
+  const googleSignIn = async () => {
     try {
       setError(null)
-      const res = await signInWithPopup(auth, provider)
-
-      const { user } = res
+      const data = await signInWithPopup(auth, provider)
+      const { user } = data
       const { uid, displayName, email, photoURL } = user
 
       setLoading(true)
 
-      // storing user into firestore
-      await setDoc(doc(db, 'users', uid), {
-        name: displayName,
-        email,
-        photoURL,
-        phone: '',
-        bloodGroup: '',
-        status: '',
-        isDonar: false,
-        isAdmin: false,
-        numDonation: 0,
-        area: '',
-        district: '',
-        lastDonation: '',
-        response: 0,
-        timeStamp: serverTimestamp(),
-      })
+      // fetching user from the database
+      let res = await getDoc(doc(db, 'users', uid))
 
-      dispatch(
-        setUser({
-          uid,
-          email,
+      // user not in the database. Means register new user
+      if (!res.data()) {
+        console.log('register ')
+        //   // storing user into firestore
+        await setDoc(doc(db, 'users', uid), {
           name: displayName,
+          email,
           photoURL,
           phone: '',
           bloodGroup: '',
@@ -141,8 +127,15 @@ const RegisterScreen = () => {
           district: '',
           lastDonation: '',
           response: 0,
+          timeStamp: serverTimestamp(),
         })
-      )
+
+        // now userInfo is in the database
+        res = await getDoc(doc(db, 'users', uid))
+        console.log(res.data())
+      }
+
+      dispatch(setUser({ uid, ...res.data() }))
       setLoading(false)
     } catch (error) {
       setLoading(false)
@@ -178,8 +171,6 @@ const RegisterScreen = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required={true}
-            // pattern='[0-9]{11}'
-            // title='11 digits phone number'
           ></Form.Control>
         </Form.Group>
 
@@ -223,7 +214,7 @@ const RegisterScreen = () => {
       </Form>
 
       <div className='text-center my-5'>
-        <button className='btn-google' onClick={googleSignUp}>
+        <button className='btn-google' onClick={googleSignIn}>
           <i className='fa-brands fa-google'></i> Sign up with google
         </button>
       </div>

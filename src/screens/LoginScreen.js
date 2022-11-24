@@ -8,7 +8,7 @@ import Message from '../components/Message'
 import Loader from './../components/Loader'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUser } from './../actions/userActions'
-import { doc, getDoc } from 'firebase/firestore'
+import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore'
 import { db } from './../firebase'
 
 const LoginScreen = () => {
@@ -49,8 +49,8 @@ const LoginScreen = () => {
       setLoading(false)
     } catch (error) {
       setLoading(false)
-      setError(error.error)
-      console.error(error.error)
+      setError(error.message)
+      console.error(error.message)
     }
   }
 
@@ -59,17 +59,45 @@ const LoginScreen = () => {
       setError(null)
       const data = await signInWithPopup(auth, provider)
       const { user } = data
+      const { uid, displayName, email, photoURL } = user
 
       setLoading(true)
 
-      const res = await getDoc(doc(db, 'users', user.uid))
+      // fetching user from the database
+      let res = await getDoc(doc(db, 'users', uid))
 
-      dispatch(setUser({ uid: user.uid, ...res.data() }))
+      // user not in the database. Means register new user
+      if (!res.data()) {
+        console.log('register ')
+        //   // storing user into firestore
+        await setDoc(doc(db, 'users', uid), {
+          name: displayName,
+          email,
+          photoURL,
+          phone: '',
+          bloodGroup: '',
+          status: '',
+          isDonar: false,
+          isAdmin: false,
+          numDonation: 0,
+          area: '',
+          district: '',
+          lastDonation: '',
+          response: 0,
+          timeStamp: serverTimestamp(),
+        })
+
+        // now userInfo is in the database
+        res = await getDoc(doc(db, 'users', uid))
+        console.log(res.data())
+      }
+
+      dispatch(setUser({ uid, ...res.data() }))
       setLoading(false)
     } catch (error) {
       setLoading(false)
-      setError(error.error)
-      console.log(error.code, error.error)
+      setError(error.message)
+      console.log(error.code, error.message)
     }
   }
 

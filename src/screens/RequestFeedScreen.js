@@ -64,6 +64,7 @@ const RequestFeedScreen = () => {
           request.district.toLowerCase().includes(queryByLocation.toLowerCase())
       )
     }
+
     return requests
   }
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { signInWithEmailAndPassword } from 'firebase/auth'
-import { auth } from '../firebase'
+import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
+import { auth, provider } from '../firebase'
 import { Button, Col, Form, Row } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import FormContainer from './../components/FormContainer'
@@ -54,24 +54,24 @@ const LoginScreen = () => {
     }
   }
 
-  // const googleSignIn = async () => {
-  //   try {
-  //     setError(null)
-  //     const data = await signInWithPopup(auth, provider)
-  //     const { user } = data
+  const googleSignIn = async () => {
+    try {
+      setError(null)
+      const data = await signInWithPopup(auth, provider)
+      const { user } = data
 
-  //     setLoading(true)
+      setLoading(true)
 
-  //     const res = await getDoc(doc(db, 'users', user.uid))
+      const res = await getDoc(doc(db, 'users', user.uid))
 
-  //     dispatch(setUser({ uid: user.uid, ...res.data() }))
-  //     setLoading(false)
-  //   } catch (error) {
-  //     setLoading(false)
-  //     setError(error.error)
-  //     console.log(error.code, error.error)
-  //   }
-  // }
+      dispatch(setUser({ uid: user.uid, ...res.data() }))
+      setLoading(false)
+    } catch (error) {
+      setLoading(false)
+      setError(error.error)
+      console.log(error.code, error.error)
+    }
+  }
 
   return (
     <FormContainer>
@@ -117,11 +117,11 @@ const LoginScreen = () => {
         </Row>
       </Form>
 
-      {/* <div className='text-center my-5'>
+      <div className='text-center my-5'>
         <button className='btn-google' onClick={googleSignIn}>
           <i className='fa-brands fa-google'></i> Sign in with google
         </button>
-      </div> */}
+      </div>
     </FormContainer>
   )
 }

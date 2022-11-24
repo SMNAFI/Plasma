@@ -44,7 +44,6 @@ const RequestPage = () => {
         date,
         numManaged: 0,
         isManaged: false,
-        response: [],
         timestamp: serverTimestamp(),
       })
       setProblem('')

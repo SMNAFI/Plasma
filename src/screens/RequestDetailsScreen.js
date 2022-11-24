@@ -24,9 +24,9 @@ function RequestDetailsScreen() {
     date,
     numBag,
     contact,
-    location,
+    area,
+    district,
     numManaged,
-    response,
     isManaged,
     uid,
   } = requestInfo
@@ -73,9 +73,11 @@ function RequestDetailsScreen() {
               <Card.Text>Date: {date}</Card.Text>
               <Card.Text>Number of bages: {numBag}</Card.Text>
               <Card.Text>Contuct Number: {contact}</Card.Text>
-              <Card.Text>Location: {location}</Card.Text>
+              <Card.Text>
+                Location: {area}, {district}
+              </Card.Text>
               <Card.Text>Bag managed: {numManaged}</Card.Text>
-              <Card.Text>Total response: {response.length}</Card.Text>
+              {/* <Card.Text>Total response: {response.length}</Card.Text> */}
             </Card.Body>
             {uid === userInfo.uid ? (
               <Link to={`/feed/${id}/edit`}>

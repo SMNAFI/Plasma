@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore'
-import { auth } from '../firebase'
+import { auth, provider } from '../firebase'
 import { Link, useNavigate } from 'react-router-dom'
 import FormContainer from '../components/FormContainer'
 import Message from './../components/Message'
@@ -97,59 +97,59 @@ const RegisterScreen = () => {
     }
   }
 
-  // const googleSignUp = async () => {
-  //   try {
-  //     setError(null)
-  //     const res = await signInWithPopup(auth, provider)
+  const googleSignUp = async () => {
+    try {
+      setError(null)
+      const res = await signInWithPopup(auth, provider)
 
-  //     const { user } = res
-  //     const { uid, displayName, email, photoURL } = user
+      const { user } = res
+      const { uid, displayName, email, photoURL } = user
 
-  //     setLoading(true)
+      setLoading(true)
 
-  //     // storing user into firestore
-  //     await setDoc(doc(db, 'users', uid), {
-  //       name: displayName,
-  //       email,
-  //       photoURL,
-  //       phone: '',
-  //       bloodGroup: '',
-  //       status: '',
-  //       isDonar: false,
-  //       isAdmin: false,
-  //       numDonation: 0,
-  //       area: '',
-  //       district: '',
-  //       lastDonation: '',
-  //       response: 0,
-  //       timeStamp: serverTimestamp(),
-  //     })
+      // storing user into firestore
+      await setDoc(doc(db, 'users', uid), {
+        name: displayName,
+        email,
+        photoURL,
+        phone: '',
+        bloodGroup: '',
+        status: '',
+        isDonar: false,
+        isAdmin: false,
+        numDonation: 0,
+        area: '',
+        district: '',
+        lastDonation: '',
+        response: 0,
+        timeStamp: serverTimestamp(),
+      })
 
-  //     dispatch(
-  //       setUser({
-  //         uid,
-  //         email,
-  //         name: displayName,
-  //         photoURL,
-  //         phone: '',
-  //         bloodGroup: '',
-  //         status: '',
-  //         isDonar: false,
-  //         isAdmin: false,
-  //         numDonation: 0,
-  //         area: '',
-  //         district: '',
-  //         lastDonation: '',
-  //         response: 0,
-  //       })
-  //     )
-  //     setLoading(false)
-  //   } catch (error) {
-  //     setLoading(false)
-  //     setError(error.message)
-  //     console.log(error.code, error.message)
-  //   }
-  // }
+      dispatch(
+        setUser({
+          uid,
+          email,
+          name: displayName,
+          photoURL,
+          phone: '',
+          bloodGroup: '',
+          status: '',
+          isDonar: false,
+          isAdmin: false,
+          numDonation: 0,
+          area: '',
+          district: '',
+          lastDonation: '',
+          response: 0,
+        })
+      )
+      setLoading(false)
+    } catch (error) {
+      setLoading(false)
+      setError(error.message)
+      console.log(error.code, error.message)
+    }
+  }
 
   return (
     <FormContainer>
@@ -222,11 +222,11 @@ const RegisterScreen = () => {
         </Row>
       </Form>
 
-      {/* <div className='text-center my-5'>
+      <div className='text-center my-5'>
         <button className='btn-google' onClick={googleSignUp}>
           <i className='fa-brands fa-google'></i> Sign up with google
         </button>
-      </div> */}
+      </div>
     </FormContainer>
   )
 }

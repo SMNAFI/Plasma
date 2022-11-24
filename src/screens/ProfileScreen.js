@@ -151,7 +151,6 @@ const ProfileScreen = () => {
               <Form.Label>Status</Form.Label>
               <Form.Select
                 value={status}
-                size='sm'
                 onChange={(e) => setStatus(e.target.value)}
                 required={true}
               >

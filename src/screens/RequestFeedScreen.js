@@ -37,25 +37,31 @@ const RequestFeedScreen = () => {
 
   // searching by bloodGroup and area
   const [queryByGroup, setQueryByGroup] = useState('')
-  const [queryByArea, setQueryByArea] = useState('')
+  const [queryByLocation, setQueryByLocation] = useState('')
 
   const handleSearch = (requests) => {
-    if (queryByArea && queryByGroup) {
+    if (queryByLocation && queryByGroup) {
       return requests.filter(
         (request) =>
           request.bloodGroup === queryByGroup &&
-          (request.area.toLowerCase().includes(queryByArea.toLowerCase()) ||
-            request.district.toLowerCase().includes(queryByArea.toLowerCase()))
+          (request.location
+            .toLowerCase()
+            .includes(queryByLocation.toLowerCase()) ||
+            request.district
+              .toLowerCase()
+              .includes(queryByLocation.toLowerCase()))
       )
     }
     if (queryByGroup) {
       return requests.filter((request) => request.bloodGroup === queryByGroup)
     }
-    if (queryByArea) {
+    if (queryByLocation) {
       return requests.filter(
         (request) =>
-          request.area.toLowerCase().includes(queryByArea.toLowerCase()) ||
-          request.district.toLowerCase().includes(queryByArea.toLowerCase())
+          request.location
+            .toLowerCase()
+            .includes(queryByLocation.toLowerCase()) ||
+          request.district.toLowerCase().includes(queryByLocation.toLowerCase())
       )
     }
     return requests
@@ -71,8 +77,8 @@ const RequestFeedScreen = () => {
             <Form.Label>Find donars by area</Form.Label>
             <Form.Control
               type='text'
-              value={queryByArea}
-              onChange={(e) => setQueryByArea(e.target.value)}
+              value={queryByLocation}
+              onChange={(e) => setQueryByLocation(e.target.value)}
             ></Form.Control>
           </Form.Group>
         </Col>

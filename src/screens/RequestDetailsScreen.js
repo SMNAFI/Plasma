@@ -24,7 +24,7 @@ function RequestDetailsScreen() {
     date,
     numBag,
     contact,
-    area,
+    location,
     district,
     numManaged,
     isManaged,
@@ -74,7 +74,7 @@ function RequestDetailsScreen() {
               <Card.Text>Number of bages: {numBag}</Card.Text>
               <Card.Text>Contuct Number: {contact}</Card.Text>
               <Card.Text>
-                Location: {area}, {district}
+                Location: {location}, {district}
               </Card.Text>
               <Card.Text>Bag managed: {numManaged}</Card.Text>
               {/* <Card.Text>Total response: {response.length}</Card.Text> */}

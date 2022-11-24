@@ -77,7 +77,6 @@ function RequestDetailsScreen() {
                 Location: {location}, {district}
               </Card.Text>
               <Card.Text>Bag managed: {numManaged}</Card.Text>
-              {/* <Card.Text>Total response: {response.length}</Card.Text> */}
             </Card.Body>
             {uid === userInfo.uid ? (
               <Link to={`/feed/${id}/edit`}>

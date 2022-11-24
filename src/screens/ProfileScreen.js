@@ -7,6 +7,7 @@ import { db } from './../firebase'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { setUser } from '../actions/userActions'
+import MyRequests from '../components/MyRequests'
 
 const ProfileScreen = () => {
   const userDetails = useSelector((state) => state.userDetails)
@@ -29,7 +30,7 @@ const ProfileScreen = () => {
   )
   const [area, setArea] = useState(userInfo ? userInfo.area : '')
   const [district, setDistrict] = useState(userInfo ? userInfo.district : '')
-  const [response] = useState(userInfo ? userInfo.response : 0)
+  // const [response] = useState(userInfo ? userInfo.response : 0)
 
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
@@ -89,9 +90,9 @@ const ProfileScreen = () => {
       <h1 className='my-5 text-center'>
         Welcome, {userInfo ? userInfo.name : ''}
       </h1>
-      <h4 className='my-5 text-center'>
+      {/* <h4 className='my-5 text-center'>
         You have respond to {response} request
-      </h4>
+      </h4> */}
 
       {success && <Message>Profile updated successfully</Message>}
       {error && <Message variant='danger'>{error}</Message>}
@@ -230,6 +231,8 @@ const ProfileScreen = () => {
           Update Profile
         </Button>
       </Form>
+
+      <MyRequests userId={userInfo.uid} />
     </section>
   )
 }

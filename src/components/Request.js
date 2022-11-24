@@ -21,7 +21,7 @@ const Donar = ({ request }) => {
     location,
     district,
     numManaged,
-    timestamp,
+    createdAt,
     // response,
   } = request
   return (
@@ -45,10 +45,10 @@ const Donar = ({ request }) => {
         </Card.Text>
         <Card.Text>Bag managed: {numManaged}</Card.Text>
         <Card.Text>
-          <small>{new Date(timestamp?.toDate()).toLocaleString()}</small>
+          <small>{new Date(createdAt?.toDate()).toLocaleString()}</small>
         </Card.Text>
         <Card.Text>
-          <small>{moment(timestamp?.toDate()).fromNow()}</small>
+          <small>{moment(createdAt?.toDate()).fromNow()}</small>
         </Card.Text>
       </Card.Body>
       <Link to={`/feed/${id}`}>

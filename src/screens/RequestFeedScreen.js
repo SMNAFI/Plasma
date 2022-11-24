@@ -13,8 +13,7 @@ const RequestFeedScreen = () => {
 
   useEffect(() => {
     const colRef = collection(db, 'requests')
-    // const q = query(colRef, orderBy('createdAt', 'desc'))
-    const q = query(colRef, orderBy('timestamp', 'desc'))
+    const q = query(colRef, orderBy('createdAt', 'desc'))
 
     const unsub = onSnapshot(
       q,

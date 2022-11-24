@@ -111,8 +111,7 @@ const RegisterScreen = () => {
 
       // user not in the database. Means register new user
       if (!res.data()) {
-        console.log('register ')
-        //   // storing user into firestore
+        // storing user into firestore
         await setDoc(doc(db, 'users', uid), {
           name: displayName,
           email,
@@ -132,7 +131,6 @@ const RegisterScreen = () => {
 
         // now userInfo is in the database
         res = await getDoc(doc(db, 'users', uid))
-        console.log(res.data())
       }
 
       dispatch(setUser({ uid, ...res.data() }))

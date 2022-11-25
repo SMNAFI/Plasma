@@ -163,16 +163,6 @@ const ProfileScreen = () => {
           </Col>
         </Row>
 
-        {/* <Form.Group controlId='isDonar' className='my-3'>
-          <Form.Check
-            type='switch'
-            id='custom-switch'
-            label='Want to be a isDonar?'
-            checked={isDonar}
-            onChange={(e) => setisDonar(e.target.checked)}
-          />
-        </Form.Group> */}
-
         <Row>
           <Col lg={6}>
             <Form.Group controlId='numDonation' className='my-3'>

@@ -1,59 +1,92 @@
-import React, { useState } from 'react'
-import { Form, Row, Col, Button } from 'react-bootstrap'
+import React, { useRef, useState } from 'react'
+import emailjs from '@emailjs/browser'
+import { Row, Col, Button } from 'react-bootstrap'
+import Loader from '../components/Loader'
+import Message from '../components/Message'
+import './ContactUsScreen.css'
 
 const ContactUsScreen = () => {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [text, setText] = useState('')
+  // const [name, setName] = useState('')
+  // const [email, setEmail] = useState('')
+  // const [message, setMessage] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [message, setMessage] = useState(null)
+  const [error, setError] = useState(null)
 
-  const submitHandler = (e) => {
-    e.preventDefaul()
+  const form = useRef()
+
+  const sendEmail = (e) => {
+    e.preventDefault()
+
+    setLoading(true)
+    setMessage(null)
+    setError(null)
+
+    emailjs
+      .sendForm(
+        process.env.REACT_APP_EMAILJS_SERVICE_ID,
+        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+        form.current,
+        process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+      )
+      .then(
+        (result) => {
+          setLoading(false)
+          setMessage('Thank you for your message.')
+        },
+        (error) => {
+          console.log(error.text)
+          setLoading(false)
+          setError(error.text)
+        }
+      )
   }
   return (
     <>
       <h1 className='text-center my-5'>Contact Us</h1>
-      <Form onSubmit={submitHandler}>
-        <Row>
-          <Col md={6}>
-            <Form.Group controlId='name' className='mb-3'>
-              <Form.Label>Name</Form.Label>
-              <Form.Control
+
+      <div className='form-container mx-auto'>
+        {loading && <Loader />}
+        {message && <Message>{message}</Message>}
+        {error && <Message variant='danger'>{error}</Message>}
+
+        <form ref={form} onSubmit={sendEmail}>
+          <Row>
+            <Col md={6}>
+              <label>Name</label>
+              <br />
+              <input
                 type='text'
-                placeholder='Your name'
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                name='user_name'
+                className='w-100 input'
                 required={true}
-              ></Form.Control>
-            </Form.Group>
-          </Col>
-
-          <Col md={6}>
-            <Form.Group controlId='email' className='mb-3'>
-              <Form.Label>Email Address</Form.Label>
-              <Form.Control
+              />
+            </Col>
+            <Col md={6}>
+              <label>Email</label>
+              <br />
+              <input
                 type='email'
-                placeholder='Your email address'
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                name='user_email'
+                className='w-100 input'
                 required={true}
-              ></Form.Control>
-            </Form.Group>
-          </Col>
-        </Row>
+              />
+            </Col>
+          </Row>
+          <div className='my-3'>
+            <label>Message</label>
+            <br />
+            <textarea
+              name='message'
+              rows='5'
+              className='w-100 input'
+              required={true}
+            />
+          </div>
 
-        <Form.Group controlId='text' className='mb-3'>
-          <Form.Label>Message</Form.Label>
-          <Form.Control
-            as='textarea'
-            placeholder='Your Message'
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            required={true}
-          ></Form.Control>
-        </Form.Group>
-
-        <Button type='submit'>Send your message</Button>
-      </Form>
+          <Button type='submit'>Send</Button>
+        </form>
+      </div>
     </>
   )
 }

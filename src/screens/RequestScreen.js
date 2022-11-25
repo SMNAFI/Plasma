@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 import Message from './../components/Message'
 import { Button, Col, Form, Row } from 'react-bootstrap'
 import { db } from './../firebase'
 import Loader from './../components/Loader'
 import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 
 const RequestPage = () => {
   const [problem, setProblem] = useState('')
@@ -22,16 +21,14 @@ const RequestPage = () => {
 
   const userDetails = useSelector((state) => state.userDetails)
   const { userInfo } = userDetails
-  const navigate = useNavigate()
-  useEffect(() => {
-    if (!userInfo) {
-      navigate('/login')
-    }
-  }, [navigate, userInfo])
 
   const submitHandler = async (e) => {
     e.preventDefault()
+
     setLoading(true)
+    setSuccess(false)
+    setError(null)
+
     try {
       await addDoc(collection(db, 'requests'), {
         uid: userInfo.uid,
@@ -47,6 +44,7 @@ const RequestPage = () => {
         isManaged: false,
         createdAt: serverTimestamp(),
       })
+
       setProblem('')
       setBloodGroup('A+')
       setNumBag(1)
@@ -57,10 +55,9 @@ const RequestPage = () => {
       setDate('')
       setLoading(false)
       setSuccess(true)
-      // console.log(res)
     } catch (error) {
       setLoading(false)
-      setError(error)
+      setError(error.message)
       console.log(error)
     }
   }

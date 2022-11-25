@@ -6,9 +6,6 @@ import Message from '../components/Message'
 import './ContactUsScreen.css'
 
 const ContactUsScreen = () => {
-  // const [name, setName] = useState('')
-  // const [email, setEmail] = useState('')
-  // const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState(null)
   const [error, setError] = useState(null)
@@ -43,7 +40,7 @@ const ContactUsScreen = () => {
   }
   return (
     <>
-      <h1 className='text-center my-5'>Contact Us</h1>
+      <h1 className='text-center my-5'>Contact with us</h1>
 
       <div className='form-container mx-auto'>
         {loading && <Loader />}

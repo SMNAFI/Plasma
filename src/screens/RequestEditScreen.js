@@ -29,7 +29,6 @@ const RequestEditScreen = () => {
       try {
         const docRef = await getDoc(doc(db, 'requests', id))
         const res = docRef.data()
-        // console.log(res)
 
         setProblem(res.problem)
         setBloodGroup(res.bloodGroup)

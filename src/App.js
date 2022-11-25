@@ -15,6 +15,7 @@ import ProfileScreen from './screens/ProfileScreen'
 import RequestEditScreen from './screens/RequestEditScreen'
 import ContactUsScreen from './screens/ContactUsScreen'
 import PageNotFound from './screens/PageNotFound'
+import ProtectedRoute from './components/ProtectedRoute'
 
 const App = () => {
   return (
@@ -24,17 +25,20 @@ const App = () => {
         <Container>
           <Routes>
             <Route path='/' element={<HomeScreen />} />
-            <Route path='/request' element={<RequestPage />} />
-            <Route path='/feed' element={<RequestFeedScreen />} />
-            <Route path='/feed/:id' element={<RequestDetailsScreen />} />
-            <Route path='/feed/:id/edit' element={<RequestEditScreen />} />
-            <Route path='/donars' element={<DonarsScreen />} />
-            <Route path='/donars/:id' element={<DonarProfileScreen />} />
             <Route path='/faq' element={<FaqScreen />} />
             <Route path='/contact' element={<ContactUsScreen />} />
             <Route path='/login' element={<LoginScreen />} />
             <Route path='/register' element={<RegisterScreen />} />
-            <Route path='/profile' element={<ProfileScreen />} />
+
+            <Route element={<ProtectedRoute />}>
+              <Route path='/request' element={<RequestPage />} />
+              <Route path='/feed' element={<RequestFeedScreen />} />
+              <Route path='/feed/:id' element={<RequestDetailsScreen />} />
+              <Route path='/feed/:id/edit' element={<RequestEditScreen />} />
+              <Route path='/donars' element={<DonarsScreen />} />
+              <Route path='/donars/:id' element={<DonarProfileScreen />} />
+              <Route path='/profile' element={<ProfileScreen />} />
+            </Route>
 
             <Route path='/*' element={<PageNotFound />} />
           </Routes>

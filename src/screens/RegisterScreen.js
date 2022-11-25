@@ -49,7 +49,6 @@ const RegisterScreen = () => {
           password
         )
         const { user } = userCredential
-        // console.log(user)
 
         // storing user into firestore
         await setDoc(doc(db, 'users', user.uid), {

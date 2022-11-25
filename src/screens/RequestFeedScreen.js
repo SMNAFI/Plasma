@@ -70,8 +70,8 @@ const RequestFeedScreen = () => {
   }
 
   return (
-    <>
-      <h1 className='my-5'>All Requests</h1>
+    <div className='my-5'>
+      <h1 className='my-5 text-center'>All Requests</h1>
 
       <Row>
         <Col md={6}>
@@ -118,7 +118,7 @@ const RequestFeedScreen = () => {
           ))}
         </Row>
       )}
-    </>
+    </div>
   )
 }
 

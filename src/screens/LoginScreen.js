@@ -35,6 +35,7 @@ const LoginScreen = () => {
 
     setLoading(true)
     setError(null)
+
     try {
       const userCredential = await signInWithEmailAndPassword(
         auth,

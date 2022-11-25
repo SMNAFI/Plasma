@@ -46,14 +46,17 @@ function DonarProfileScreen() {
           style={{ maxWidth: '650px' }}
         >
           <Card.Body>
-            <Card.Title>{name}</Card.Title>
+            <Card.Text as='h1'>
+              <i className='fa-solid fa-user fs-1 my-3'></i>
+            </Card.Text>
+            <Card.Title className='my-3'>{name}</Card.Title>
             <Card.Text>Blood Group: {bloodGroup}</Card.Text>
-            <Card.Text>Total Response: {response}</Card.Text>
-            <Card.Text>Total Donation: {numDonation}</Card.Text>
             <Card.Text>Phone Number: {phone}</Card.Text>
             <Card.Text>
               Address: {area}, {district}
             </Card.Text>
+            <Card.Text>Total Response: {response}</Card.Text>
+            <Card.Text>Total Donation: {numDonation}</Card.Text>
           </Card.Body>
         </Card>
       )}

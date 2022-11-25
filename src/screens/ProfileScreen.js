@@ -222,7 +222,7 @@ const ProfileScreen = () => {
         </Button>
       </Form>
 
-      <MyRequests userId={userInfo.uid} />
+      <MyRequests userId={userInfo?.uid} />
     </section>
   )
 }

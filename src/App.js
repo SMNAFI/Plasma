@@ -14,6 +14,7 @@ import RegisterScreen from './screens/RegisterScreen'
 import ProfileScreen from './screens/ProfileScreen'
 import RequestEditScreen from './screens/RequestEditScreen'
 import ContactUsScreen from './screens/ContactUsScreen'
+import PageNotFound from './screens/PageNotFound'
 
 const App = () => {
   return (
@@ -34,6 +35,8 @@ const App = () => {
             <Route path='/login' element={<LoginScreen />} />
             <Route path='/register' element={<RegisterScreen />} />
             <Route path='/profile' element={<ProfileScreen />} />
+
+            <Route path='/*' element={<PageNotFound />} />
           </Routes>
         </Container>
       </main>

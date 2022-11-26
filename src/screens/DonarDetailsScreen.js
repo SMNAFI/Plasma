@@ -5,20 +5,20 @@ import { useParams } from 'react-router-dom'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { Card } from 'react-bootstrap'
+import checkDonationDate from './../hooks/checkDate'
 
 function DonarProfileScreen() {
   const { id } = useParams()
   const [donarInfo, setDonarInfo] = useState({})
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const { name, phone, bloodGroup, area, district, response, numDonation } =
+  const { name, phone, bloodGroup, area, district, numDonation, lastDonation } =
     donarInfo
 
   useEffect(() => {
     const unsub = onSnapshot(
       doc(db, 'users', id),
       (doc) => {
-        //   console.log('Current data: ', doc.data())
         setLoading(false)
         setDonarInfo({ id: doc.id, ...doc.data() })
       },
@@ -55,8 +55,19 @@ function DonarProfileScreen() {
             <Card.Text>
               Address: {area}, {district}
             </Card.Text>
-            <Card.Text>Total Response: {response}</Card.Text>
             <Card.Text>Total Donation: {numDonation}</Card.Text>
+            {lastDonation && (
+              <Card.Text>Last Donation: {lastDonation}</Card.Text>
+            )}
+            {lastDonation ? (
+              checkDonationDate(lastDonation) ? (
+                <Message>Ready to donate</Message>
+              ) : (
+                <Message variant='danger'>Not ready to donate now</Message>
+              )
+            ) : (
+              <Message>Ready to donate</Message>
+            )}
           </Card.Body>
         </Card>
       )}

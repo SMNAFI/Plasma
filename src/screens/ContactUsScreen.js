@@ -6,8 +6,12 @@ import Message from '../components/Message'
 import './ContactUsScreen.css'
 
 const ContactUsScreen = () => {
+  const [user_name, setUser_name] = useState('')
+  const [user_email, setUser_email] = useState('')
+  const [message, setMessage] = useState('')
+
   const [loading, setLoading] = useState(false)
-  const [message, setMessage] = useState(null)
+  const [success, setSuccess] = useState(false)
   const [error, setError] = useState(null)
 
   const form = useRef()
@@ -16,7 +20,7 @@ const ContactUsScreen = () => {
     e.preventDefault()
 
     setLoading(true)
-    setMessage(null)
+    setSuccess(false)
     setError(null)
 
     emailjs
@@ -29,7 +33,11 @@ const ContactUsScreen = () => {
       .then(
         (result) => {
           setLoading(false)
-          setMessage('Thank you for your message.')
+          setSuccess(true)
+
+          setUser_name('')
+          setUser_email('')
+          setMessage('')
         },
         (error) => {
           console.log(error.text)
@@ -44,7 +52,7 @@ const ContactUsScreen = () => {
 
       <div className='form-container mx-auto'>
         {loading && <Loader />}
-        {message && <Message>{message}</Message>}
+        {success && <Message>Thank you for your message.</Message>}
         {error && <Message variant='danger'>{error}</Message>}
 
         <form ref={form} onSubmit={sendEmail}>
@@ -55,6 +63,8 @@ const ContactUsScreen = () => {
               <input
                 type='text'
                 name='user_name'
+                value={user_name}
+                onChange={(e) => setUser_name(e.target.value)}
                 className='w-100 input'
                 required={true}
               />
@@ -65,6 +75,8 @@ const ContactUsScreen = () => {
               <input
                 type='email'
                 name='user_email'
+                value={user_email}
+                onChange={(e) => setUser_email(e.target.value)}
                 className='w-100 input'
                 required={true}
               />
@@ -75,6 +87,8 @@ const ContactUsScreen = () => {
             <br />
             <textarea
               name='message'
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
               rows='5'
               className='w-100 input'
               required={true}

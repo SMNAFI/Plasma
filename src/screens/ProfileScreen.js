@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { doc, getDoc, setDoc } from 'firebase/firestore'
+import moment from 'moment'
 import { Button, Col, Form, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -8,6 +9,7 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { setUser } from '../actions/userActions'
 import MyRequests from '../components/MyRequests'
+import checkDonationDate from '../hooks/checkDate'
 
 const ProfileScreen = () => {
   const userDetails = useSelector((state) => state.userDetails)
@@ -72,7 +74,6 @@ const ProfileScreen = () => {
       )
       // getting back user data
       const res = await getDoc(doc(db, 'users', userInfo.uid))
-      // console.log(res.data())
 
       dispatch(setUser({ uid: userInfo.uid, ...res.data() }))
 
@@ -90,13 +91,28 @@ const ProfileScreen = () => {
       <h1 className='my-5 text-center'>
         Welcome, {userInfo ? userInfo.name : ''}
       </h1>
-      {/* <h4 className='my-5 text-center'>
-        You have respond to {response} request
-      </h4> */}
 
       {success && <Message>Profile updated successfully</Message>}
       {error && <Message variant='danger'>{error}</Message>}
       {loading && <Loader />}
+
+      {lastDonation && (
+        <div>
+          <h5>
+            {checkDonationDate(lastDonation) ? (
+              <Message>
+                Your Next Donation Date was:{' '}
+                {moment(lastDonation).add(121, 'days').format('MMMM Do YYYY')}
+              </Message>
+            ) : (
+              <Message>
+                Your Next Donation Date is:{' '}
+                {moment(lastDonation).add(121, 'days').format('MMMM Do YYYY')}
+              </Message>
+            )}
+          </h5>
+        </div>
+      )}
 
       <Form onSubmit={updateHandler}>
         <Row>

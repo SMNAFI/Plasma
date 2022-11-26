@@ -32,7 +32,6 @@ const ProfileScreen = () => {
   )
   const [area, setArea] = useState(userInfo ? userInfo.area : '')
   const [district, setDistrict] = useState(userInfo ? userInfo.district : '')
-  // const [response] = useState(userInfo ? userInfo.response : 0)
 
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
@@ -187,7 +186,7 @@ const ProfileScreen = () => {
                 type='number'
                 placeholder='Num of bages'
                 value={numDonation}
-                onChange={(e) => setNumDonation(e.target.value)}
+                onChange={(e) => setNumDonation(Number(e.target.value))}
                 required={true}
                 min='0'
               ></Form.Control>

@@ -110,7 +110,7 @@ const RequestPage = () => {
                 type='number'
                 placeholder='Num of bages'
                 value={numBag}
-                onChange={(e) => setNumBag(e.target.value)}
+                onChange={(e) => setNumBag(Number(e.target.value))}
                 required={true}
                 min='1'
               ></Form.Control>

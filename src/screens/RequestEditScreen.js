@@ -145,7 +145,7 @@ const RequestEditScreen = () => {
                 type='number'
                 placeholder='Num of bages'
                 value={numBag}
-                onChange={(e) => setNumBag(e.target.value)}
+                onChange={(e) => setNumBag(Number(e.target.value))}
                 required={true}
                 min='1'
               ></Form.Control>
@@ -159,7 +159,7 @@ const RequestEditScreen = () => {
                 type='number'
                 placeholder='Num of bages'
                 value={numManaged}
-                onChange={(e) => setNumManaged(e.target.value)}
+                onChange={(e) => setNumManaged(Number(e.target.value))}
                 required={true}
                 min='0'
               ></Form.Control>

@@ -3,13 +3,13 @@ import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
 import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore'
 import { auth, provider } from '../firebase'
 import { Link, useNavigate } from 'react-router-dom'
-import FormContainer from '../components/FormContainer'
 import Message from './../components/Message'
-import { Button, Col, Form, Row } from 'react-bootstrap'
+import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import Loader from '../components/Loader'
 import { db } from './../firebase'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUser } from './../actions/userActions'
+import google from '../assets/images/google.svg'
 
 const RegisterScreen = () => {
   const [name, setName] = useState('')
@@ -142,7 +142,7 @@ const RegisterScreen = () => {
   }
 
   return (
-    <FormContainer>
+    <Container style={{ maxWidth: '650px' }}>
       <h1 className='text-center my-5'>Sign Up</h1>
 
       {error && <Message variant='danger'>{error}</Message>}
@@ -212,10 +212,16 @@ const RegisterScreen = () => {
 
       <div className='text-center my-5'>
         <button className='btn-google' onClick={googleSignIn}>
-          <i className='fa-brands fa-google'></i> Sign up with google
+          <img
+            src={google}
+            alt='google logo'
+            className='me-1'
+            style={{ height: '24px' }}
+          />{' '}
+          Continue with google
         </button>
       </div>
-    </FormContainer>
+    </Container>
   )
 }
 

@@ -4,8 +4,9 @@ import { collection, onSnapshot, query, where } from 'firebase/firestore'
 import { db } from '../firebase'
 import Loader from './../components/Loader'
 import Message from './../components/Message'
-import { Col, Form, Row } from 'react-bootstrap'
+import { Col, Container, Form, Row } from 'react-bootstrap'
 import Donar from './../components/Donar'
+import SubHero from '../components/SubHero/SubHero'
 
 function DonarsScreen() {
   const [donars, setDonars] = useState([])
@@ -45,7 +46,8 @@ function DonarsScreen() {
       return donars.filter(
         (donar) =>
           donar.bloodGroup === queryByGroup &&
-          (donar.area.toLowerCase().includes(queryByArea.toLowerCase()) ||
+          (donar.name.toLowerCase().includes(queryByArea.toLowerCase()) ||
+            donar.area.toLowerCase().includes(queryByArea.toLowerCase()) ||
             donar.district.toLowerCase().includes(queryByArea.toLowerCase()))
       )
     }
@@ -55,6 +57,7 @@ function DonarsScreen() {
     if (queryByArea) {
       return donars.filter(
         (donar) =>
+          donar.name.toLowerCase().includes(queryByArea.toLowerCase()) ||
           donar.area.toLowerCase().includes(queryByArea.toLowerCase()) ||
           donar.district.toLowerCase().includes(queryByArea.toLowerCase())
       )
@@ -64,52 +67,55 @@ function DonarsScreen() {
 
   return (
     <>
-      <h1 className='my-5'>Donars</h1>
-      <Row>
-        <Col md={6}>
-          <Form.Group controlId='name'>
-            <Form.Label>Find donars by area</Form.Label>
-            <Form.Control
-              type='text'
-              value={queryByArea}
-              onChange={(e) => setQueryByArea(e.target.value)}
-            ></Form.Control>
-          </Form.Group>
-        </Col>
-        <Col md={6}>
-          <Form.Group controlId='group'>
-            <Form.Label>Find donars by blood group</Form.Label>
-            <Form.Select
-              value={queryByGroup}
-              onChange={(e) => setQueryByGroup(e.target.value)}
-            >
-              <option></option>
-              <option>A+</option>
-              <option>A-</option>
-              <option>B+</option>
-              <option>B-</option>
-              <option>AB+</option>
-              <option>AB-</option>
-              <option>O+</option>
-              <option>O-</option>
-            </Form.Select>
-          </Form.Group>
-        </Col>
-      </Row>
+      <SubHero title={'Donars'} text={'Find our Super Hero Volunteers'} />
 
-      {loading ? (
-        <Loader />
-      ) : error ? (
-        <Message variant='danger'>{error}</Message>
-      ) : (
+      <Container className='my-5'>
         <Row>
-          {handleSearch(donars).map((donar) => (
-            <Col key={donar.id} sm={12} lg={6}>
-              <Donar donar={donar} />
-            </Col>
-          ))}
+          <Col md={6}>
+            <Form.Group controlId='name'>
+              <Form.Label>Find donars by name or area</Form.Label>
+              <Form.Control
+                type='text'
+                value={queryByArea}
+                onChange={(e) => setQueryByArea(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
+          </Col>
+          <Col md={6}>
+            <Form.Group controlId='group'>
+              <Form.Label>Find donars by blood group</Form.Label>
+              <Form.Select
+                value={queryByGroup}
+                onChange={(e) => setQueryByGroup(e.target.value)}
+              >
+                <option></option>
+                <option>A+</option>
+                <option>A-</option>
+                <option>B+</option>
+                <option>B-</option>
+                <option>AB+</option>
+                <option>AB-</option>
+                <option>O+</option>
+                <option>O-</option>
+              </Form.Select>
+            </Form.Group>
+          </Col>
         </Row>
-      )}
+
+        {loading ? (
+          <Loader />
+        ) : error ? (
+          <Message variant='danger'>{error}</Message>
+        ) : (
+          <Row>
+            {handleSearch(donars).map((donar) => (
+              <Col key={donar.id} sm={12} lg={6}>
+                <Donar donar={donar} />
+              </Col>
+            ))}
+          </Row>
+        )}
+      </Container>
     </>
   )
 }

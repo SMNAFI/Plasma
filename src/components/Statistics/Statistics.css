@@ -1,0 +1,18 @@
+.statistics-container {
+  min-height: 350px;
+}
+
+.statistics-container h1 {
+  color: #ff3f62;
+  font-weight: 900;
+  font-size: 2.2rem;
+}
+.statistics-container h3 {
+  color: #5c5c74;
+}
+.count {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #5c5c74;
+}

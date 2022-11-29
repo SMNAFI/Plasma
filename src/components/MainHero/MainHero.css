@@ -1,0 +1,35 @@
+.hero {
+  color: #fff !important;
+  height: 690px !important;
+  background-image: url('../../assets/images/header.svg');
+  background-repeat: no-repeat;
+  background-size: 2560px auto;
+  background-position: top;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.125;
+}
+
+.sub-title {
+  color: #fff;
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+.btn-find-blood {
+  color: #fff;
+  border: 2px solid #fff;
+  background: transparent;
+  padding: 12px 40px;
+  border-radius: 3px;
+  font-weight: 800;
+}
+
+.btn-find-blood:hover {
+  color: #5c5b74;
+  background-color: #fff;
+}

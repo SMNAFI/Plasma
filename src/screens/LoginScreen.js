@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
 import { auth, provider } from '../firebase'
-import { Button, Col, Form, Row } from 'react-bootstrap'
+import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
-import FormContainer from './../components/FormContainer'
 import Message from '../components/Message'
 import Loader from './../components/Loader'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUser } from './../actions/userActions'
 import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore'
 import { db } from './../firebase'
+import google from '../assets/images/google.svg'
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('')
@@ -101,7 +101,7 @@ const LoginScreen = () => {
   }
 
   return (
-    <FormContainer>
+    <Container style={{ maxWidth: '650px' }}>
       <h1 className='text-center my-5'>Sign In</h1>
 
       {error && <Message variant='danger'>{error}</Message>}
@@ -146,10 +146,16 @@ const LoginScreen = () => {
 
       <div className='text-center my-5'>
         <button className='btn-google' onClick={googleSignIn}>
-          <i className='fa-brands fa-google'></i> Sign in with google
+          <img
+            src={google}
+            alt='google logo'
+            className='me-1'
+            style={{ height: '24px' }}
+          />{' '}
+          Continue with google
         </button>
       </div>
-    </FormContainer>
+    </Container>
   )
 }
 

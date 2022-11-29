@@ -1,7 +1,7 @@
 import React from 'react'
 import { Image } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import error from '../images/404.svg'
+import error from '../assets/images/404.svg'
 
 const PageNotFound = () => {
   return (

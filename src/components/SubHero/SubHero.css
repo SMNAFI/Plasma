@@ -1,0 +1,14 @@
+.sub-hero-container {
+  text-align: center;
+  color: #fff;
+  height: 390px;
+  background-image: url('../../assets/images/subheader.svg');
+  background-repeat: no-repeat;
+  background-size: 2560px auto;
+  background-position: top;
+}
+
+.sub-hero-sub-container {
+  min-height: 290px;
+  max-width: 700px;
+}

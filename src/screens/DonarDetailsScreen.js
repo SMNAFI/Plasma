@@ -4,8 +4,10 @@ import { db } from '../firebase'
 import { useParams } from 'react-router-dom'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import { Card } from 'react-bootstrap'
+import { Card, Col, Container, Row } from 'react-bootstrap'
 import checkDonationDate from './../hooks/checkDate'
+import user from '../assets/images/user.png'
+import SubHero from './../components/SubHero/SubHero'
 
 function DonarProfileScreen() {
   const { id } = useParams()
@@ -35,30 +37,14 @@ function DonarProfileScreen() {
 
   return (
     <>
-      <h1 className='my-5 text-center'>Donar Details</h1>
-      {loading ? (
-        <Loader />
-      ) : error ? (
-        <Message variant='danger'>{error}</Message>
-      ) : (
-        <Card
-          className='my-3 p-3 rounded mx-auto'
-          style={{ maxWidth: '650px' }}
-        >
-          <Card.Body>
-            <Card.Text as='h1'>
-              <i className='fa-solid fa-user fs-1 my-3'></i>
-            </Card.Text>
-            <Card.Title className='my-3'>{name}</Card.Title>
-            <Card.Text>Blood Group: {bloodGroup}</Card.Text>
-            <Card.Text>Phone Number: {phone}</Card.Text>
-            <Card.Text>
-              Address: {area}, {district}
-            </Card.Text>
-            <Card.Text>Total Donation: {numDonation}</Card.Text>
-            {lastDonation && (
-              <Card.Text>Last Donation: {lastDonation}</Card.Text>
-            )}
+      <SubHero title={'Donar Details'} text={`Donar Id: ${id}`} />
+      <Container className='my-5'>
+        {loading ? (
+          <Loader />
+        ) : error ? (
+          <Message variant='danger'>{error}</Message>
+        ) : (
+          <div style={{ maxWidth: '700px' }} className='mx-auto'>
             {lastDonation ? (
               checkDonationDate(lastDonation) ? (
                 <Message>Ready to donate</Message>
@@ -68,9 +54,37 @@ function DonarProfileScreen() {
             ) : (
               <Message>Ready to donate</Message>
             )}
-          </Card.Body>
-        </Card>
-      )}
+
+            <Card className='my-3 p-3 rounded mx-auto'>
+              <Card.Body>
+                <Row className='align-items-center justify-content-center'>
+                  <Col sm={4} className='text-center'>
+                    <Card.Img
+                      src={user}
+                      alt='user profile photo'
+                      className='donar-img mb-4'
+                    />
+                  </Col>
+                  <Col sm={8}>
+                    <Card.Title className='my-3' as='h3'>
+                      {name}
+                    </Card.Title>
+                    <Card.Text>Blood Group: {bloodGroup}</Card.Text>
+                    <Card.Text>Phone Number: {phone}</Card.Text>
+                    <Card.Text>
+                      Address: {area}, {district}
+                    </Card.Text>
+                    <Card.Text>Total Donation: {numDonation}</Card.Text>
+                    {lastDonation && (
+                      <Card.Text>Last Donation: {lastDonation}</Card.Text>
+                    )}
+                  </Col>
+                </Row>
+              </Card.Body>
+            </Card>
+          </div>
+        )}
+      </Container>
     </>
   )
 }

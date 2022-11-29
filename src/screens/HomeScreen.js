@@ -1,11 +1,16 @@
 import React from 'react'
+import Join from '../components/Join/Join'
+import SaveLives from '../components/SaveLives'
+import Statistics from '../components/Statistics/Statistics'
+import MainHero from '../components/MainHero/MainHero'
 
 function HomeScreen() {
   return (
     <>
-      <h1 className='text-center my-5'>Welcome to Plasma</h1>
-
-      <h3 className='text-center my-5'>Content comming soon!!!!</h3>
+      <MainHero />
+      <Join />
+      <Statistics />
+      <SaveLives />
     </>
   )
 }

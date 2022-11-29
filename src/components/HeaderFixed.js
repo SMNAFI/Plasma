@@ -1,11 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Container, Image, Nav, Navbar, NavDropdown } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { removeUser } from '../actions/userActions'
 import plasma from '../assets/images/plasma.png'
+import './HeaderFixed.css'
 
-const Header = () => {
+const HeaderFixed = () => {
+  const [isFixedNavActive, setIsFixedNavActive] = useState(false)
+
+  const scrollCheck = () => {
+    if (window.scrollY >= 100) {
+      setIsFixedNavActive(true)
+    } else {
+      setIsFixedNavActive(false)
+    }
+  }
+  window.addEventListener('scroll', scrollCheck)
+
   const userDetails = useSelector((state) => state.userDetails)
   const { userInfo } = userDetails
 
@@ -14,13 +26,16 @@ const Header = () => {
   const logoutHandler = () => {
     dispatch(removeUser())
   }
+
   return (
     <header>
       <Navbar
-        variant='dark'
+        variant='light'
         expand='lg'
+        bg='light'
         collapseOnSelect
-        style={{ paddingTop: '24px', paddingBottom: '0px' }}
+        className={`fixedNav ${isFixedNavActive ? 'fixedNavVisible' : ''}`}
+        style={{ padding: '16px 0px' }}
       >
         <Container>
           <LinkContainer to='/'>
@@ -83,4 +98,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export default HeaderFixed

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Container } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import Header from '../Header'
 import HeaderFixed from '../HeaderFixed'
 import './MainHero.css'
@@ -16,7 +17,9 @@ const MainHero = () => {
             <h3 className='sub-title mt-4'>
               Connecting blood donors with recipients
             </h3>
-            <button className='btn-find-blood mt-5'>Find blood</button>
+            <Link to='/donars'>
+              <button className='btn-find-blood mt-5'>Find Donars</button>
+            </Link>
           </div>
         </div>
       </Container>

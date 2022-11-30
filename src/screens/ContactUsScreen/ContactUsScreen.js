@@ -113,7 +113,11 @@ const ContactUsScreen = () => {
             </div>
 
             <div className='text-center'>
-              <button type='submit' className='btn-main'>
+              <button
+                type='submit'
+                className='btn-main'
+                style={{ width: '100%' }}
+              >
                 Send Message
               </button>
             </div>

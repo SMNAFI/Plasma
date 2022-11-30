@@ -216,7 +216,11 @@ const RequestPage = () => {
           </Form.Group>
 
           <div className='text-center'>
-            <button type='submit' className='btn-main mt-3'>
+            <button
+              type='submit'
+              className='btn-main mt-3'
+              style={{ width: '100%' }}
+            >
               Submit your request
             </button>
           </div>

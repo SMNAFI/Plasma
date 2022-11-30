@@ -108,7 +108,7 @@ const LoginScreen = () => {
         text="Join our wonderful community and start saving lives. You can become someone's unknown but all important Hero."
       />
 
-      <Container style={{ maxWidth: '650px' }}>
+      <Container style={{ maxWidth: '600px' }}>
         {error && <Message variant='danger'>{error}</Message>}
         {loading && <Loader />}
 
@@ -135,7 +135,7 @@ const LoginScreen = () => {
             ></Form.Control>
           </Form.Group>
 
-          <button type='submit' className='btn-main'>
+          <button type='submit' className='btn-main' style={{ width: '100%' }}>
             Sign In
           </button>
 

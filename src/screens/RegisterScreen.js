@@ -201,7 +201,7 @@ const RegisterScreen = () => {
             ></Form.Control>
           </Form.Group>
 
-          <button type='submit' className='btn-main'>
+          <button type='submit' className='btn-main' style={{ width: '100%' }}>
             Register
           </button>
 

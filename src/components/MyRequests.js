@@ -49,7 +49,7 @@ const MyRequests = ({ userId }) => {
       {loading && <Loader />}
       {error && <Message variant='danger'>{error}</Message>}
       {requests.length ? (
-        <Table striped bordered size='sm' responsive='lg'>
+        <Table striped bordered size='sm' responsive='xl'>
           <thead>
             <tr>
               <th>Request ID</th>
@@ -61,7 +61,7 @@ const MyRequests = ({ userId }) => {
           <tbody>
             {requests.map(({ id, problem, bloodGroup, createdAt }) => (
               <tr key={id}>
-                <td style={{ maxWidth: '100px', overflowX: 'hidden' }}>{id}</td>
+                <td>{id}</td>
                 <td>{problem}</td>
                 <td>{bloodGroup}</td>
                 <td>{moment(createdAt?.toDate()).fromNow()}</td>

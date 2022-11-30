@@ -1,10 +1,14 @@
+/* .body {
+  font-family: 'Poppins', sans-serif !important;
+} */
+
 .btn-main {
   color: #ff3f62;
   font-size: 14px;
   font-weight: 800;
-  padding: 12px 26px;
+  padding: 12px 24px;
   border: 2px solid #ff3f62;
-  border-radius: 500px;
+  border-radius: 3px;
   background-color: transparent;
 }
 .btn-main:hover {

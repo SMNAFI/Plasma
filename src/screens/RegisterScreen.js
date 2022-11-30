@@ -4,12 +4,13 @@ import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore'
 import { auth, provider } from '../firebase'
 import { Link, useNavigate } from 'react-router-dom'
 import Message from './../components/Message'
-import { Button, Col, Container, Form, Row } from 'react-bootstrap'
+import { Col, Container, Form, Row } from 'react-bootstrap'
 import Loader from '../components/Loader'
 import { db } from './../firebase'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUser } from './../actions/userActions'
 import google from '../assets/images/google.svg'
+import SubHero from '../components/SubHero/SubHero'
 
 const RegisterScreen = () => {
   const [name, setName] = useState('')
@@ -142,86 +143,91 @@ const RegisterScreen = () => {
   }
 
   return (
-    <Container style={{ maxWidth: '650px' }}>
-      <h1 className='text-center my-5'>Sign Up</h1>
+    <>
+      <SubHero
+        title='Sign Up'
+        text="Join our wonderful community and start saving lives. You can become someone's unknown but all important Hero."
+      />
 
-      {error && <Message variant='danger'>{error}</Message>}
-      {loading && <Loader />}
+      <Container style={{ maxWidth: '650px' }}>
+        {error && <Message variant='danger'>{error}</Message>}
+        {loading && <Loader />}
 
-      <Form onSubmit={submitHandler} className='mt-5'>
-        <Form.Group controlId='name' className='mb-3'>
-          <Form.Label>Name</Form.Label>
-          <Form.Control
-            type='text'
-            placeholder='Enter name'
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required={true}
-          ></Form.Control>
-        </Form.Group>
+        <Form onSubmit={submitHandler} className='mt-5'>
+          <Form.Group controlId='name' className='mb-3'>
+            <Form.Label>Name</Form.Label>
+            <Form.Control
+              type='text'
+              placeholder='Enter name'
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required={true}
+            ></Form.Control>
+          </Form.Group>
 
-        <Form.Group controlId='email' className='mb-3'>
-          <Form.Label>Email Address</Form.Label>
-          <Form.Control
-            type='email'
-            placeholder='Enter your email address'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required={true}
-          ></Form.Control>
-        </Form.Group>
+          <Form.Group controlId='email' className='mb-3'>
+            <Form.Label>Email Address</Form.Label>
+            <Form.Control
+              type='email'
+              placeholder='Enter your email address'
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required={true}
+            ></Form.Control>
+          </Form.Group>
 
-        <Form.Group controlId='password' className='mb-3'>
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type='password'
-            // placeholder='••••••••'
-            placeholder='Enter password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required={true}
-            minLength={6}
-          ></Form.Control>
-        </Form.Group>
+          <Form.Group controlId='password' className='mb-3'>
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type='password'
+              // placeholder='••••••••'
+              placeholder='Enter password'
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required={true}
+              minLength={6}
+            ></Form.Control>
+          </Form.Group>
 
-        <Form.Group controlId='confirmPassword' className='mb-3'>
-          <Form.Label>Confirm Password</Form.Label>
-          <Form.Control
-            type='password'
-            placeholder='Confirem your password'
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required={true}
-            minLength={6}
-          ></Form.Control>
-        </Form.Group>
+          <Form.Group controlId='confirmPassword' className='mb-3'>
+            <Form.Label>Confirm Password</Form.Label>
+            <Form.Control
+              type='password'
+              placeholder='Confirem your password'
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required={true}
+              minLength={6}
+            ></Form.Control>
+          </Form.Group>
 
-        <Button type='submit' varient='primary'>
-          Register
-        </Button>
+          <button type='submit' className='btn-main'>
+            Register
+          </button>
 
-        <Row className='py-3'>
-          <Col>
-            Have an account?{' '}
-            <Link to='/login' style={{ textDecoration: 'none' }}>
-              Login
-            </Link>
-          </Col>
-        </Row>
-      </Form>
+          <Row className='py-3'>
+            <Col>
+              Have an account?{' '}
+              <Link to='/login' style={{ textDecoration: 'none' }}>
+                Login
+              </Link>
+            </Col>
+          </Row>
+        </Form>
 
-      <div className='text-center my-5'>
-        <button className='btn-google' onClick={googleSignIn}>
-          <img
-            src={google}
-            alt='google logo'
-            className='me-1'
-            style={{ height: '24px' }}
-          />{' '}
-          Continue with google
-        </button>
-      </div>
-    </Container>
+        <div className='text-center my-5'>
+          <button className='btn-google' onClick={googleSignIn}>
+            <img
+              src={google}
+              alt='google logo'
+              className='me-1'
+              style={{ height: '24px' }}
+            />{' '}
+            Continue with google
+          </button>
+        </div>
+      </Container>
+    </>
   )
 }
 

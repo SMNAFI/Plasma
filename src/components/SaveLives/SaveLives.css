@@ -1,0 +1,20 @@
+.save-lives {
+  background-image: url('../../assets/images/footer.svg');
+  background-repeat: no-repeat;
+  background-size: 2560px auto;
+  background-position: top;
+  text-align: center;
+  height: 380px;
+}
+
+.save-life-title {
+  text-align: center;
+  color: #fff;
+  font-size: 2rem;
+}
+
+.save-life-text {
+  font-size: 1.1rem;
+  text-align: center;
+  color: #fff;
+}

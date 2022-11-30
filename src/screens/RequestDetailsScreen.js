@@ -88,9 +88,13 @@ function RequestDetailsScreen() {
             )}
             <Card className='my-3 p-3 rounded'>
               <Card.Body>
-                <Row className='align-items-center justify-content-center'>
-                  <Col sm={4}>
-                    <Card.Img src={img} className='type-img'></Card.Img>
+                <Row>
+                  <Col sm={4} className='center'>
+                    <Card.Img
+                      src={img}
+                      style={{ maxWidth: '200px' }}
+                      className='p-3'
+                    ></Card.Img>
                   </Col>
 
                   <Col sm={8}>

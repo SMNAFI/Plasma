@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Container, Image, Nav, Navbar, NavDropdown } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { removeUser } from '../actions/userActions'
-import plasma from '../assets/images/plasma.png'
+import { removeUser } from '../../actions/userActions'
+import plasma from '../../assets/images/plasma.png'
 import './HeaderFixed.css'
 
 const HeaderFixed = () => {

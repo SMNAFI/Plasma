@@ -44,7 +44,11 @@ const Donar = ({ request }) => {
       <Card.Body>
         <Row className='align-items-center justify-content-center'>
           <Col sm={4} className='center'>
-            <Card.Img src={img} style={{ maxWidth: '180px' }}></Card.Img>
+            <Card.Img
+              className='p-3'
+              src={img}
+              style={{ maxWidth: '200px' }}
+            ></Card.Img>
           </Col>
 
           <Col sm={8}>

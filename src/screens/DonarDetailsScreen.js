@@ -69,6 +69,7 @@ function DonarProfileScreen() {
                   <Col sm={4} className='center'>
                     <Card.Img
                       // src={photoURL ? `${photoURL}` : user}
+                      className='p-3'
                       src={user}
                       alt='user profile photo'
                       style={{ maxWidth: '200px' }}

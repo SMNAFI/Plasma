@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container } from 'react-bootstrap'
 import Header from '../Header'
-import HeaderFixed from '../HeaderFixed'
+import HeaderFixed from '../HeaderFixed/HeaderFixed'
 import './SubHero.css'
 
 const SubHero = ({ title, text }) => {

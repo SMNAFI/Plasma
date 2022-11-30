@@ -2,7 +2,7 @@ import React from 'react'
 import { Container } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Header from '../Header'
-import HeaderFixed from '../HeaderFixed'
+import HeaderFixed from '../HeaderFixed/HeaderFixed'
 import './MainHero.css'
 
 const MainHero = () => {

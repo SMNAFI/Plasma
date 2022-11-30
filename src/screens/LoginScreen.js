@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
 import { auth, provider } from '../firebase'
-import { Button, Col, Container, Form, Row } from 'react-bootstrap'
+import { Col, Container, Form, Row } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import Message from '../components/Message'
 import Loader from './../components/Loader'
@@ -10,6 +10,7 @@ import { setUser } from './../actions/userActions'
 import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore'
 import { db } from './../firebase'
 import google from '../assets/images/google.svg'
+import SubHero from '../components/SubHero/SubHero'
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('')
@@ -101,61 +102,66 @@ const LoginScreen = () => {
   }
 
   return (
-    <Container style={{ maxWidth: '650px' }}>
-      <h1 className='text-center my-5'>Sign In</h1>
+    <>
+      <SubHero
+        title='Sign In'
+        text="Join our wonderful community and start saving lives. You can become someone's unknown but all important Hero."
+      />
 
-      {error && <Message variant='danger'>{error}</Message>}
-      {loading && <Loader />}
+      <Container style={{ maxWidth: '650px' }}>
+        {error && <Message variant='danger'>{error}</Message>}
+        {loading && <Loader />}
 
-      <Form onSubmit={submitHandler} className='my-5'>
-        <Form.Group controlId='email' className='mb-3'>
-          <Form.Label>Email Address</Form.Label>
-          <Form.Control
-            type='email'
-            placeholder='Enter email address'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required={true}
-          ></Form.Control>
-        </Form.Group>
+        <Form onSubmit={submitHandler} className='my-5'>
+          <Form.Group controlId='email' className='mb-3'>
+            <Form.Label>Email Address</Form.Label>
+            <Form.Control
+              type='email'
+              placeholder='Enter email address'
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required={true}
+            ></Form.Control>
+          </Form.Group>
 
-        <Form.Group controlId='password' className='mb-3'>
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type='password'
-            placeholder='Enter password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required={true}
-          ></Form.Control>
-        </Form.Group>
+          <Form.Group controlId='password' className='mb-3'>
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type='password'
+              placeholder='Enter password'
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required={true}
+            ></Form.Control>
+          </Form.Group>
 
-        <Button type='submit' varient='primary'>
-          Sign In
-        </Button>
+          <button type='submit' className='btn-main'>
+            Sign In
+          </button>
 
-        <Row className='py-3'>
-          <Col>
-            New User?{' '}
-            <Link to={'/register'} style={{ textDecoration: 'none' }}>
-              Register
-            </Link>
-          </Col>
-        </Row>
-      </Form>
+          <Row className='py-3'>
+            <Col>
+              New User?{' '}
+              <Link to={'/register'} style={{ textDecoration: 'none' }}>
+                Register
+              </Link>
+            </Col>
+          </Row>
+        </Form>
 
-      <div className='text-center my-5'>
-        <button className='btn-google' onClick={googleSignIn}>
-          <img
-            src={google}
-            alt='google logo'
-            className='me-1'
-            style={{ height: '24px' }}
-          />{' '}
-          Continue with google
-        </button>
-      </div>
-    </Container>
+        <div className='text-center my-5'>
+          <button className='btn-google' onClick={googleSignIn}>
+            <img
+              src={google}
+              alt='google logo'
+              className='me-1'
+              style={{ height: '24px' }}
+            />{' '}
+            Continue with google
+          </button>
+        </div>
+      </Container>
+    </>
   )
 }
 

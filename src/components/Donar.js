@@ -26,12 +26,11 @@ const Donar = ({ donar }) => {
   return (
     <Card className='my-3 p-3 rounded'>
       <Card.Body>
-        <Row className='align-items-center justify-content-center'>
-          <Col sm={4}>
-            <div className='mb-4 text-center'>
-              <Card.Img src={img} className='type-img'></Card.Img>
-            </div>
+        <Row>
+          <Col sm={4} className='center'>
+            <Card.Img src={img} style={{ maxWidth: '180px' }}></Card.Img>
           </Col>
+
           <Col sm={8}>
             <Card.Text>Name: {name}</Card.Text>
             <Card.Text>Blood Group: {bloodGroup}</Card.Text>

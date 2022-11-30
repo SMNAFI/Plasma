@@ -14,8 +14,16 @@ function DonarProfileScreen() {
   const [donarInfo, setDonarInfo] = useState({})
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const { name, phone, bloodGroup, area, district, numDonation, lastDonation } =
-    donarInfo
+  const {
+    name,
+    phone,
+    bloodGroup,
+    area,
+    district,
+    numDonation,
+    lastDonation,
+    // photoURL,
+  } = donarInfo
 
   useEffect(() => {
     const unsub = onSnapshot(
@@ -44,7 +52,7 @@ function DonarProfileScreen() {
         ) : error ? (
           <Message variant='danger'>{error}</Message>
         ) : (
-          <div style={{ maxWidth: '700px' }} className='mx-auto'>
+          <div style={{ maxWidth: '800px' }} className='mx-auto'>
             {lastDonation ? (
               checkDonationDate(lastDonation) ? (
                 <Message>Ready to donate</Message>
@@ -58,15 +66,17 @@ function DonarProfileScreen() {
             <Card className='my-3 p-3 rounded mx-auto'>
               <Card.Body>
                 <Row className='align-items-center justify-content-center'>
-                  <Col sm={4} className='text-center'>
+                  <Col sm={4} className='center'>
                     <Card.Img
+                      // src={photoURL ? `${photoURL}` : user}
                       src={user}
                       alt='user profile photo'
-                      className='donar-img mb-4'
+                      style={{ maxWidth: '200px' }}
                     />
                   </Col>
+
                   <Col sm={8}>
-                    <Card.Title className='my-3' as='h3'>
+                    <Card.Title className='my-4' as='h3'>
                       {name}
                     </Card.Title>
                     <Card.Text>Blood Group: {bloodGroup}</Card.Text>

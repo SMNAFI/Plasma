@@ -79,12 +79,12 @@ const RequestPage = () => {
         <Form onSubmit={submitHandler} className='my-5'>
           <Form.Group controlId='problem' className='mb-3'>
             <Form.Label>
-              Problem
+              Patient's Problem
               <Required />
             </Form.Label>
             <Form.Control
               as='textarea'
-              placeholder='Enter your reason'
+              placeholder="Enter patient's problem"
               value={problem}
               onChange={(e) => setProblem(e.target.value)}
               required={true}

@@ -7,6 +7,8 @@ import Message from './../components/Message'
 import { Col, Container, Form, Row } from 'react-bootstrap'
 import Donar from './../components/Donar'
 import SubHero from '../components/SubHero/SubHero'
+import { handleDonarFilter } from '../hooks/handleFilters'
+// import checkDonationDate from './../hooks/checkDate'
 
 function DonarsScreen() {
   const [donars, setDonars] = useState([])
@@ -38,57 +40,35 @@ function DonarsScreen() {
   }, [])
 
   // searching by bloodGroup and area
-  const [queryByGroup, setQueryByGroup] = useState('')
-  const [queryByArea, setQueryByArea] = useState('')
-
-  const handleSearch = (donars) => {
-    if (queryByArea && queryByGroup) {
-      return donars.filter(
-        (donar) =>
-          donar.bloodGroup === queryByGroup &&
-          (donar.name.toLowerCase().includes(queryByArea.toLowerCase()) ||
-            donar.area.toLowerCase().includes(queryByArea.toLowerCase()) ||
-            donar.district.toLowerCase().includes(queryByArea.toLowerCase()))
-      )
-    }
-    if (queryByGroup) {
-      return donars.filter((donar) => donar.bloodGroup === queryByGroup)
-    }
-    if (queryByArea) {
-      return donars.filter(
-        (donar) =>
-          donar.name.toLowerCase().includes(queryByArea.toLowerCase()) ||
-          donar.area.toLowerCase().includes(queryByArea.toLowerCase()) ||
-          donar.district.toLowerCase().includes(queryByArea.toLowerCase())
-      )
-    }
-    return donars
-  }
+  const [byGroup, setByGroup] = useState('All')
+  const [byArea, setByArea] = useState('')
+  const [byAvailable, setByAvailable] = useState('All')
 
   return (
     <>
       <SubHero title={'Donars'} text={'Find our Super Hero Volunteers'} />
 
-      <Container className='my-5'>
+      <Container className='my-5' style={{ maxWidth: '900px' }}>
         <Row>
-          <Col md={6}>
+          <Col lg={4}>
             <Form.Group controlId='name'>
-              <Form.Label>Find donars by name or area</Form.Label>
+              <Form.Label>Filter by name or area</Form.Label>
               <Form.Control
                 type='text'
-                value={queryByArea}
-                onChange={(e) => setQueryByArea(e.target.value)}
+                value={byArea}
+                onChange={(e) => setByArea(e.target.value)}
               ></Form.Control>
             </Form.Group>
           </Col>
-          <Col md={6}>
+
+          <Col lg={4}>
             <Form.Group controlId='group'>
-              <Form.Label>Find donars by blood group</Form.Label>
+              <Form.Label>Blood Group</Form.Label>
               <Form.Select
-                value={queryByGroup}
-                onChange={(e) => setQueryByGroup(e.target.value)}
+                value={byGroup}
+                onChange={(e) => setByGroup(e.target.value)}
               >
-                <option></option>
+                <option>All</option>
                 <option>A+</option>
                 <option>A-</option>
                 <option>B+</option>
@@ -100,6 +80,19 @@ function DonarsScreen() {
               </Form.Select>
             </Form.Group>
           </Col>
+
+          <Col lg={4}>
+            <Form.Group controlId='available'>
+              <Form.Label>Status</Form.Label>
+              <Form.Select
+                value={byAvailable}
+                onChange={(e) => setByAvailable(e.target.value)}
+              >
+                <option>All</option>
+                <option>Ready to donate</option>
+              </Form.Select>
+            </Form.Group>
+          </Col>
         </Row>
 
         {loading ? (
@@ -108,11 +101,11 @@ function DonarsScreen() {
           <Message variant='danger'>{error}</Message>
         ) : (
           <Row>
-            {handleSearch(donars).map((donar) => (
-              <Col key={donar.id} sm={12} lg={6}>
-                <Donar donar={donar} />
-              </Col>
-            ))}
+            {handleDonarFilter(donars, byGroup, byAvailable, byArea).map(
+              (donar) => (
+                <Donar donar={donar} key={donar.id} />
+              )
+            )}
           </Row>
         )}
       </Container>

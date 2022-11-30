@@ -30,7 +30,6 @@ const HeaderFixed = () => {
   return (
     <header>
       <Navbar
-        variant='light'
         expand='lg'
         bg='light'
         collapseOnSelect

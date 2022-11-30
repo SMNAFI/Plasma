@@ -6,6 +6,7 @@ import Loader from '../components/Loader'
 import Message from '../components/Message'
 import Request from '../components/Request'
 import SubHero from '../components/SubHero/SubHero'
+import { handleRequestFilter } from '../hooks/handleFilters'
 
 const RequestFeedScreen = () => {
   const [requests, setRequests] = useState([])
@@ -38,37 +39,9 @@ const RequestFeedScreen = () => {
   }, [])
 
   // searching by bloodGroup and area
-  const [queryByGroup, setQueryByGroup] = useState('')
-  const [queryByLocation, setQueryByLocation] = useState('')
-
-  const handleSearch = (requests) => {
-    if (queryByLocation && queryByGroup) {
-      return requests.filter(
-        (request) =>
-          request.bloodGroup === queryByGroup &&
-          (request.location
-            .toLowerCase()
-            .includes(queryByLocation.toLowerCase()) ||
-            request.district
-              .toLowerCase()
-              .includes(queryByLocation.toLowerCase()))
-      )
-    }
-    if (queryByGroup) {
-      return requests.filter((request) => request.bloodGroup === queryByGroup)
-    }
-    if (queryByLocation) {
-      return requests.filter(
-        (request) =>
-          request.location
-            .toLowerCase()
-            .includes(queryByLocation.toLowerCase()) ||
-          request.district.toLowerCase().includes(queryByLocation.toLowerCase())
-      )
-    }
-
-    return requests
-  }
+  const [byGroup, setByGroup] = useState('All')
+  const [byLocation, setByLocation] = useState('')
+  const [byIsManaged, setByIsManaged] = useState('All')
 
   return (
     <>
@@ -77,51 +50,71 @@ const RequestFeedScreen = () => {
         text={'Our Realtime Network Activity Feed'}
       />
 
-      <Container className='my-5'>
-        <Row>
-          <Col md={6}>
-            <Form.Group controlId='name'>
-              <Form.Label>Find requests by location</Form.Label>
-              <Form.Control
-                type='text'
-                value={queryByLocation}
-                onChange={(e) => setQueryByLocation(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
-          </Col>
-          <Col md={6}>
-            <Form.Group controlId='group'>
-              <Form.Label>Find requests by blood group</Form.Label>
-              <Form.Select
-                value={queryByGroup}
-                onChange={(e) => setQueryByGroup(e.target.value)}
-              >
-                <option></option>
-                <option>A+</option>
-                <option>A-</option>
-                <option>B+</option>
-                <option>B-</option>
-                <option>AB+</option>
-                <option>AB-</option>
-                <option>O+</option>
-                <option>O-</option>
-              </Form.Select>
-            </Form.Group>
-          </Col>
-        </Row>
-
+      <Container className='my-5' style={{ maxWidth: '900px' }}>
         {loading ? (
           <Loader />
         ) : error ? (
           <Message variant='danger'>{error}</Message>
         ) : (
-          <Row>
-            {handleSearch(requests).map((request) => (
-              <Col key={request.id} sm={12} lg={6}>
-                <Request request={request} />
+          <>
+            <Row>
+              <Col lg={4}>
+                <Form.Group controlId='name'>
+                  <Form.Label>Filter by location</Form.Label>
+                  <Form.Control
+                    type='text'
+                    value={byLocation}
+                    onChange={(e) => setByLocation(e.target.value)}
+                  ></Form.Control>
+                </Form.Group>
               </Col>
-            ))}
-          </Row>
+
+              <Col lg={4}>
+                <Form.Group controlId='group'>
+                  <Form.Label>Blood Group</Form.Label>
+                  <Form.Select
+                    value={byGroup}
+                    onChange={(e) => setByGroup(e.target.value)}
+                  >
+                    <option>All</option>
+                    <option>A+</option>
+                    <option>A-</option>
+                    <option>B+</option>
+                    <option>B-</option>
+                    <option>AB+</option>
+                    <option>AB-</option>
+                    <option>O+</option>
+                    <option>O-</option>
+                  </Form.Select>
+                </Form.Group>
+              </Col>
+
+              <Col lg={4}>
+                <Form.Group controlId='managed'>
+                  <Form.Label>Status</Form.Label>
+                  <Form.Select
+                    value={byIsManaged}
+                    onChange={(e) => setByIsManaged(e.target.value)}
+                  >
+                    <option>All</option>
+                    <option>Not managed</option>
+                    <option>Managed</option>
+                  </Form.Select>
+                </Form.Group>
+              </Col>
+            </Row>
+
+            <div>
+              {handleRequestFilter(
+                requests,
+                byGroup,
+                byLocation,
+                byIsManaged
+              ).map((request) => (
+                <Request request={request} key={request.id} />
+              ))}
+            </div>
+          </>
         )}
       </Container>
     </>

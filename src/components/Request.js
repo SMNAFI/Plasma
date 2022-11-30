@@ -43,13 +43,11 @@ const Donar = ({ request }) => {
     <Card className='my-3 p-3 rounded'>
       <Card.Body>
         <Row className='align-items-center justify-content-center'>
-          <Col sm={4}>
-            <div className='text-center mb-5'>
-              <Card.Img src={img} className='type-img'></Card.Img>
-            </div>
+          <Col sm={4} className='center'>
+            <Card.Img src={img} style={{ maxWidth: '180px' }}></Card.Img>
           </Col>
+
           <Col sm={8}>
-            {/* <Card.Text>Blood Group: {bloodGroup}</Card.Text> */}
             <Card.Text>Time: {time}</Card.Text>
             <Card.Text>Date: {date}</Card.Text>
             <Card.Text>

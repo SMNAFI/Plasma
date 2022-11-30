@@ -74,7 +74,7 @@ function RequestDetailsScreen() {
     <>
       <SubHero title={'Request Details'} text={`Request Id: ${id}`} />
 
-      <Container className='mx-auto my-5' style={{ maxWidth: '700px' }}>
+      <Container className='mx-auto my-5' style={{ maxWidth: '900px' }}>
         {loading ? (
           <Loader />
         ) : error ? (
@@ -90,10 +90,9 @@ function RequestDetailsScreen() {
               <Card.Body>
                 <Row className='align-items-center justify-content-center'>
                   <Col sm={4}>
-                    <div className='text-center mb-5'>
-                      <Card.Img src={img} className='type-img'></Card.Img>
-                    </div>
+                    <Card.Img src={img} className='type-img'></Card.Img>
                   </Col>
+
                   <Col sm={8}>
                     <Card.Text>Blood Group: {bloodGroup}</Card.Text>
                     <Card.Text>Problem: {problem}</Card.Text>
@@ -113,13 +112,16 @@ function RequestDetailsScreen() {
                   </Col>
                 </Row>
               </Card.Body>
+
               {uid === userInfo.uid && (
-                <Link to={`/feed/${id}/edit`}>
-                  <Button>
-                    <i className='fa-solid fa-pen-to-square me-3'></i>
-                    Edit Request
-                  </Button>
-                </Link>
+                <div className='text-center mt-3'>
+                  <Link to={`/feed/${id}/edit`}>
+                    <Button>
+                      <i className='fa-solid fa-pen-to-square me-3'></i>
+                      Edit Request
+                    </Button>
+                  </Link>
+                </div>
               )}
             </Card>
           </>

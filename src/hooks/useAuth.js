@@ -1,10 +1,9 @@
-import { useSelector } from 'react-redux'
+import { getAuth } from 'firebase/auth'
 
 const useAuth = () => {
-  const userDetails = useSelector((state) => state.userDetails)
-  const { userInfo } = userDetails
+  const user = getAuth().currentUser
 
-  if (userInfo) return true
+  if (user) return true
 
   return false
 }

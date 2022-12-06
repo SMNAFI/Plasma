@@ -14,6 +14,7 @@ const Header = () => {
   const logoutHandler = () => {
     dispatch(removeUser())
   }
+
   return (
     <header>
       <Navbar

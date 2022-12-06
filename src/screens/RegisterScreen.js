@@ -169,7 +169,7 @@ const RegisterScreen = () => {
             <Form.Label>Email Address</Form.Label>
             <Form.Control
               type='email'
-              placeholder='Enter your email address'
+              placeholder='example@gamil.com'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required={true}
@@ -180,7 +180,7 @@ const RegisterScreen = () => {
             <Form.Label>Password</Form.Label>
             <Form.Control
               type='password'
-              // placeholder='••••••••'
+              // placeholder='••••••'
               placeholder='Enter password'
               value={password}
               onChange={(e) => setPassword(e.target.value)}

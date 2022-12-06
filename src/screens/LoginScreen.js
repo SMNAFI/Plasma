@@ -51,7 +51,7 @@ const LoginScreen = () => {
       setLoading(false)
     } catch (error) {
       setLoading(false)
-      setError(error.message)
+      setError('Invalid email or password')
       console.error(error.message)
     }
   }
@@ -117,7 +117,7 @@ const LoginScreen = () => {
             <Form.Label>Email Address</Form.Label>
             <Form.Control
               type='email'
-              placeholder='Enter email address'
+              placeholder='example@gamil.com'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required={true}
@@ -128,12 +128,19 @@ const LoginScreen = () => {
             <Form.Label>Password</Form.Label>
             <Form.Control
               type='password'
-              placeholder='Enter password'
+              placeholder='••••••'
+              // placeholder='Enter password'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required={true}
             ></Form.Control>
           </Form.Group>
+
+          <p>
+            <Link to='/forget-password' className='mb-3'>
+              Forget Password
+            </Link>
+          </p>
 
           <button type='submit' className='btn-main' style={{ width: '100%' }}>
             Sign In

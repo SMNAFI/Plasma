@@ -14,6 +14,7 @@ import RequestEditScreen from './screens/RequestEditScreen'
 import PageNotFound from './screens/PageNotFound'
 import ProtectedRoute from './components/ProtectedRoute'
 import ContactUsScreen from './screens/ContactUsScreen/ContactUsScreen'
+import ForgetPasswordScreen from './screens/ForgetPasswordScreen'
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
           <Route path='/contact' element={<ContactUsScreen />} />
           <Route path='/login' element={<LoginScreen />} />
           <Route path='/register' element={<RegisterScreen />} />
+          <Route path='/forget-password' element={<ForgetPasswordScreen />} />
 
           <Route element={<ProtectedRoute />}>
             <Route path='/request' element={<RequestPage />} />

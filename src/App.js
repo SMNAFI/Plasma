@@ -15,6 +15,9 @@ import PageNotFound from './screens/PageNotFound'
 import ProtectedRoute from './components/ProtectedRoute'
 import ContactUsScreen from './screens/ContactUsScreen/ContactUsScreen'
 import ForgetPasswordScreen from './screens/ForgetPasswordScreen'
+import AdminRoute from './components/AdminRoute'
+import ManageUsersScreen from './screens/ManageUsersScreen'
+import ManageRequestsScreen from './screens/ManageRequestsScreen'
 
 const App = () => {
   return (
@@ -37,6 +40,12 @@ const App = () => {
             <Route path='/donars' element={<DonarsScreen />} />
             <Route path='/donars/:id' element={<DonarProfileScreen />} />
             <Route path='/profile' element={<ProfileScreen />} />
+          </Route>
+
+          {/* admin only */}
+          <Route element={<AdminRoute />}>
+            <Route path='/admin/users' element={<ManageUsersScreen />} />
+            <Route path='/admin/requests' element={<ManageRequestsScreen />} />
           </Route>
 
           <Route path='/*' element={<PageNotFound />} />

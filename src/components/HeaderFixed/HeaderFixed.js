@@ -78,6 +78,18 @@ const HeaderFixed = () => {
                     <NavDropdown.Item>Profile</NavDropdown.Item>
                   </LinkContainer>
 
+                  {userInfo.isAdmin && (
+                    <>
+                      <LinkContainer to='/admin/users'>
+                        <NavDropdown.Item>Manage Users</NavDropdown.Item>
+                      </LinkContainer>
+
+                      <LinkContainer to='/admin/requests'>
+                        <NavDropdown.Item>Manage Requests</NavDropdown.Item>
+                      </LinkContainer>
+                    </>
+                  )}
+
                   <NavDropdown.Item onClick={logoutHandler}>
                     Logout
                   </NavDropdown.Item>

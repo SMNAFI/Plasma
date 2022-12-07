@@ -1,0 +1,31 @@
+.works-container {
+  background-image: url(../assets/images/dots.webp);
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.works-title {
+  color: #ff3f62;
+  font-size: 2.2rem;
+}
+
+.works-sub-title {
+  font-size: 1.3rem;
+}
+
+.step-title {
+  font-family: var(--bs-body-font-family);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #5c5c74;
+  text-transform: unset;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+}
+
+.step-subtitle {
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  font-family: var(--bs-body-font-family);
+}

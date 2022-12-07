@@ -3,7 +3,7 @@ import { Col, Container, Image, Row } from 'react-bootstrap'
 import area from '../../assets/images/area.svg'
 import connect from '../../assets/images/connect.svg'
 import savelife from '../../assets/images/savelife.svg'
-import emergency from '../../assets/images/emergency.svg'
+// import emergency from '../../assets/images/emergency.svg'
 import './Join.css'
 
 const Join = () => {
@@ -31,17 +31,16 @@ const Join = () => {
           <Col lg={6} className='center order-lg-1 p-3'>
             <Image src={area} style={{ maxHeight: '400px' }} />
           </Col>
-          <Col lg={6} className='center order-lg-0 p-3'>
+          <Col lg={6} className='center order-lg-0 p-sm-3 p-md-5 p-lg-0'>
             <div>
               <p className='join-sub-title'>
                 <i className='fa-solid fa-magnifying-glass me-3 join-icon'></i>
                 Find Donors in your Area
               </p>
               <p className='join-sub-text'>
-                Get connected in a matter of minutes at zero cost. Our App ships
-                with a smart system that finds the closest blood donors. Our
-                automated blood donation system works efficiently whenever
-                someone needs a blood transfusion.
+                Get connected in a matter of minutes at zero cost. Find the
+                closest blood donors through our platform whenever someone needs
+                a blood transfusion.
               </p>
             </div>
           </Col>
@@ -51,7 +50,7 @@ const Join = () => {
           <Col lg={6} className='center p-3'>
             <Image src={connect} style={{ maxHeight: '400px' }} />
           </Col>
-          <Col lg={6} className='center p-3'>
+          <Col lg={6} className='center p-sm-3 p-md-5 p-lg-0'>
             <div>
               <p className='join-sub-title'>
                 <i className='fa-regular fa-clock me-3 join-icon'></i>Answer to
@@ -60,23 +59,23 @@ const Join = () => {
               <p className='join-sub-text'>
                 As soon as a new blood request is raised, it is routed among our
                 local volunteer blood donors. We know time matters! So we keep
-                you updated with real-time notifications sent directly to you
-                via SMS (text message) or the installed mobile app
+                you updated with real-time.
               </p>
             </div>
           </Col>
         </Row>
 
-        <Row>
+        {/* <Row>
           <Col lg={6} className='center order-lg-1 p-3'>
             <Image src={emergency} style={{ maxHeight: '400px' }} />
           </Col>
-          <Col lg={6} className='center order-lg-0 p-3'>
+          <Col lg={6} className='center order-lg-0 p-sm-3 p-md-5 p-lg-0'>
             <div>
               <p className='join-sub-title'>
                 <i className='fa-solid fa-mobile-screen me-3 join-icon'></i>Made
                 for Everyone
               </p>
+
               <p className='join-sub-text'>
                 All you need to do is send a text message to 8655, "blood need
                 (blood-group) in (your-city)", in any language you want. Our
@@ -85,13 +84,35 @@ const Join = () => {
               </p>
             </div>
           </Col>
-        </Row>
+        </Row> */}
 
         <Row>
+          <Col lg={6} className='center order-lg-1 p-3'>
+            <Image src={savelife} style={{ maxHeight: '400px' }} />
+          </Col>
+          <Col lg={6} className='center order-lg-0 p-sm-3 p-md-5 p-lg-0'>
+            <div>
+              <p className='join-sub-title'>
+                <i className='fa-solid fa-award me-3 join-icon'></i>You are
+                someone's Hero
+              </p>
+
+              <p className='join-sub-text'>
+                In as little as few minutes, you can become someone's unnamed,
+                unknown, but all-important Hero. Saving a life is a noble work
+                that starts very simply and easily. Donate Blood or donate
+                Money, every form of contribution you make is important, valued
+                and essential in our shared mission to save lives.
+              </p>
+            </div>
+          </Col>
+        </Row>
+
+        {/* <Row>
           <Col lg={6} className='center p-3'>
             <Image src={savelife} style={{ maxHeight: '400px' }} />
           </Col>
-          <Col lg={6} className='center p-3'>
+          <Col lg={6} className='center p-sm-3 p-md-5 p-lg-0'>
             <div>
               <p className='join-sub-title'>
                 <i className='fa-solid fa-award me-3 join-icon'></i>You are
@@ -106,7 +127,7 @@ const Join = () => {
               </p>
             </div>
           </Col>
-        </Row>
+        </Row> */}
       </Container>
     </section>
   )

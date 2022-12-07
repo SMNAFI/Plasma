@@ -56,6 +56,7 @@ const MyRequests = ({ userId }) => {
               <th>Reason</th>
               <th>Blood Group</th>
               <th>Time</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -67,16 +68,10 @@ const MyRequests = ({ userId }) => {
                 <td>{moment(createdAt?.toDate()).fromNow()}</td>
                 <td>
                   <Link to={`/feed/${id}`}>
-                    <i
-                      className='fa-solid fa-eye me-3'
-                      style={{ fontSize: '24px' }}
-                    ></i>
+                    <i className='fa-solid fa-eye me-3'></i>
                   </Link>
                   <Link to={`/feed/${id}/edit`}>
-                    <i
-                      className='fa-solid fa-pen-to-square'
-                      style={{ fontSize: '24px' }}
-                    ></i>
+                    <i className='fa-solid fa-pen-to-square'></i>
                   </Link>
                 </td>
               </tr>

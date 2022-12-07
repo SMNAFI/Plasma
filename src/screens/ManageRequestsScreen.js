@@ -55,6 +55,7 @@ const ManageRequestsScreen = () => {
               <th>Blood Group</th>
               <th>Status</th>
               <th>Time</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -66,6 +67,11 @@ const ManageRequestsScreen = () => {
                   <td>{bloodGroup}</td>
                   <td>{isManaged ? 'Managed' : 'Not Managed'}</td>
                   <td>{moment(createdAt?.toDate()).fromNow()}</td>
+                  <td>
+                    <i className='fa-solid fa-eye me-3'></i>
+                    <i className='fa-solid fa-pen-to-square me-3'></i>
+                    <i className='fa-solid fa-trash-can'></i>
+                  </td>
                 </tr>
               )
             )}

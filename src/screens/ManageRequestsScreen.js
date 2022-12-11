@@ -1,7 +1,15 @@
-import { collection, onSnapshot, orderBy, query } from 'firebase/firestore'
+import {
+  collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+} from 'firebase/firestore'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import { Container, Table } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { db } from '../firebase'
@@ -10,6 +18,7 @@ import SubHero from './../components/SubHero/SubHero'
 const ManageRequestsScreen = () => {
   const [requests, setRequests] = useState([])
   const [error, setError] = useState(null)
+  const [message, setMessage] = useState(null)
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -40,11 +49,30 @@ const ManageRequestsScreen = () => {
     }
   }, [])
 
+  const deleteHandler = async (id) => {
+    if (window.confirm('Are you sure?')) {
+      try {
+        setLoading(true)
+        setError(null)
+        setMessage(null)
+
+        await deleteDoc(doc(db, 'requests', id))
+
+        setMessage('Request is deleted.')
+      } catch (error) {
+        setLoading(false)
+
+        setError(error.message)
+      }
+    }
+  }
+
   return (
     <>
       <SubHero title='Manage Requests'></SubHero>
       <Container className='my-5'>
         {loading && <Loader />}
+        {message && <Message>{message}</Message>}
         {error && <Message variant='error'>{error}</Message>}
 
         <Table striped bordered size='sm' responsive='xl'>
@@ -68,9 +96,18 @@ const ManageRequestsScreen = () => {
                   <td>{isManaged ? 'Managed' : 'Not Managed'}</td>
                   <td>{moment(createdAt?.toDate()).fromNow()}</td>
                   <td>
-                    <i className='fa-solid fa-eye me-3'></i>
-                    <i className='fa-solid fa-pen-to-square me-3'></i>
-                    <i className='fa-solid fa-trash-can'></i>
+                    <Link to={`/feed/${id}`}>
+                      <i className='fa-solid fa-eye me-3'></i>
+                    </Link>
+                    <Link to={`/feed/${id}/edit`}>
+                      <i className='fa-solid fa-pen-to-square me-3'></i>
+                    </Link>
+                    <span
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => deleteHandler(id)}
+                    >
+                      <i className='fa-solid fa-trash-can text-danger'></i>
+                    </span>
                   </td>
                 </tr>
               )

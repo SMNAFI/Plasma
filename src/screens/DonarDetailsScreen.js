@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { doc, onSnapshot } from 'firebase/firestore'
 import { db } from '../firebase'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { Card, Col, Container, Row } from 'react-bootstrap'

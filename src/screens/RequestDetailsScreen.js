@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import moment from 'moment'
 import { doc, onSnapshot } from 'firebase/firestore'
 import { db } from '../firebase'
 import { useParams } from 'react-router-dom'
@@ -110,8 +109,8 @@ function RequestDetailsScreen() {
                     <Card.Text>Bag managed: {numManaged}</Card.Text>
                     <Card.Text>
                       Posted in:{' '}
-                      {new Date(createdAt?.toDate()).toLocaleString()} (
-                      {moment(createdAt?.toDate()).fromNow()})
+                      {new Date(createdAt?.toDate()).toLocaleString()}
+                      {/* ({moment(createdAt?.toDate()).fromNow()}) */}
                     </Card.Text>
                   </Col>
                 </Row>

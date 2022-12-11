@@ -7,6 +7,7 @@ import Loader from './../components/Loader'
 import { useSelector } from 'react-redux'
 import Required from './../components/Required'
 import SubHero from '../components/SubHero/SubHero'
+import { useNavigate } from 'react-router-dom'
 
 const RequestPage = () => {
   const [problem, setProblem] = useState('')
@@ -23,6 +24,8 @@ const RequestPage = () => {
 
   const userDetails = useSelector((state) => state.userDetails)
   const { userInfo } = userDetails
+
+  const navigate = useNavigate()
 
   const submitHandler = async (e) => {
     e.preventDefault()
@@ -57,6 +60,8 @@ const RequestPage = () => {
       setDate('')
       setLoading(false)
       setSuccess(true)
+
+      navigate('/feed')
     } catch (error) {
       setLoading(false)
       setError(error.message)
@@ -83,6 +88,7 @@ const RequestPage = () => {
               <Required />
             </Form.Label>
             <Form.Control
+              className='shadow-none'
               as='textarea'
               placeholder="Enter patient's problem"
               value={problem}
@@ -99,6 +105,7 @@ const RequestPage = () => {
                   <Required />
                 </Form.Label>
                 <Form.Select
+                  className='shadow-none'
                   value={bloodGroup}
                   onChange={(e) => setBloodGroup(e.target.value)}
                   required={true}
@@ -122,6 +129,7 @@ const RequestPage = () => {
                   <Required />
                 </Form.Label>
                 <Form.Control
+                  className='shadow-none'
                   type='number'
                   placeholder='Num of bages'
                   value={numBag}
@@ -141,6 +149,7 @@ const RequestPage = () => {
                   <Required />
                 </Form.Label>
                 <Form.Control
+                  className='shadow-none'
                   type='text'
                   placeholder='Enter location'
                   value={location}
@@ -156,6 +165,7 @@ const RequestPage = () => {
                   <Required />
                 </Form.Label>
                 <Form.Control
+                  className='shadow-none'
                   type='text'
                   placeholder='Enter district'
                   value={district}
@@ -174,6 +184,7 @@ const RequestPage = () => {
                   <Required />
                 </Form.Label>
                 <Form.Control
+                  className='shadow-none'
                   type='string'
                   placeholder='Time'
                   value={time}
@@ -189,6 +200,7 @@ const RequestPage = () => {
                   <Required />
                 </Form.Label>
                 <Form.Control
+                  className='shadow-none'
                   type='date'
                   placeholder='Date'
                   value={date}
@@ -205,6 +217,7 @@ const RequestPage = () => {
               <Required />
             </Form.Label>
             <Form.Control
+              className='shadow-none'
               type='text'
               placeholder='Contact Number'
               value={contact}

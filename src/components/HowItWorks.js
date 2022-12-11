@@ -3,15 +3,24 @@ import { Container } from 'react-bootstrap'
 import './HowItWorks.css'
 
 import Timeline from '@mui/lab/Timeline'
-import TimelineItem from '@mui/lab/TimelineItem'
+import TimelineItem, { timelineItemClasses } from '@mui/lab/TimelineItem'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import TimelineSeparator from '@mui/lab/TimelineSeparator'
 import TimelineConnector from '@mui/lab/TimelineConnector'
 import TimelineContent from '@mui/lab/TimelineContent'
 import TimelineDot from '@mui/lab/TimelineDot'
-// import Typography from '@mui/material/Typography'
 import steps from './../assets/data/stepsData'
 
 const HowItWorks = () => {
+  const isMobile = useMediaQuery('(max-width:768px)')
+
+  // const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
+  // useEffect(() => {
+  //   window.addEventListener('resize', () => {
+  //     setIsMobile(window.innerWidth < 768)
+  //   })
+  // }, [])
+
   return (
     <section className='works-container'>
       <Container className='my-5'>
@@ -23,7 +32,19 @@ const HowItWorks = () => {
         </div>
 
         <div style={{ maxWidth: '800px' }} className='mx-auto'>
-          <Timeline position='alternate'>
+          <Timeline
+            position={`${isMobile ? 'right' : 'alternate'}`}
+            sx={
+              isMobile
+                ? {
+                    [`& .${timelineItemClasses.root}:before`]: {
+                      flex: 0,
+                      padding: 0,
+                    },
+                  }
+                : {}
+            }
+          >
             {steps.map((step) => (
               <TimelineItem key={step.id}>
                 <TimelineSeparator>
@@ -42,11 +63,6 @@ const HowItWorks = () => {
                   <TimelineConnector />
                 </TimelineSeparator>
                 <TimelineContent sx={{ py: '12px', px: 2 }}>
-                  {/* <Typography variant='h6' component='span'>
-                    {step.title}
-                  </Typography>
-                  <Typography>{step.text}</Typography> */}
-
                   <p className='step-title'>{step.title}</p>
                   <p className='step-subtitle'>{step.text}</p>
                 </TimelineContent>

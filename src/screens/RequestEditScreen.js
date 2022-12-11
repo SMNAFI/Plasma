@@ -104,7 +104,7 @@ const RequestEditScreen = () => {
         {error && <Message variant='danger'>{error}</Message>}
         {loading && <Loader />}
 
-        {uid === userInfo.uid ? (
+        {uid === userInfo.uid || userInfo.isAdmin ? (
           <Form onSubmit={submitHandler} className='my-5'>
             <Form.Group controlId='isManged' className='mb-3'>
               <Form.Check
@@ -246,7 +246,7 @@ const RequestEditScreen = () => {
             </Row>
 
             <Button type='submit' varient='primary'>
-              Update Your Request
+              Update Request
             </Button>
           </Form>
         ) : (

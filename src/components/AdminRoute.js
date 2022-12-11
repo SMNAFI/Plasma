@@ -9,7 +9,7 @@ const AdminRoute = () => {
   const userDetails = useSelector((state) => state.userDetails)
   const { userInfo } = userDetails
 
-  return isAuth && userInfo.isAdmin ? <Outlet /> : <LoginScreen />
+  return isAuth && userInfo?.isAdmin ? <Outlet /> : <LoginScreen />
 }
 
 export default AdminRoute

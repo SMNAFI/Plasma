@@ -45,7 +45,7 @@ const Statistics = () => {
             <h3 className='text-center'>Total Donars</h3>
             {inView ? (
               <h2 className='count'>
-                <CountUp start={0} end={donarCount} duration={2} />
+                <CountUp start={0} end={donarCount} duration={1} />
               </h2>
             ) : null}
           </Col>

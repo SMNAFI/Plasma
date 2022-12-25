@@ -26,7 +26,7 @@ const steps = [
   {
     id: 5,
     title: 'View pending Requests',
-    text: 'Track exiting blood requests and get updated in real time.',
+    text: 'Track existing blood requests and get updated in real time.',
     icon: 'fa-regular fa-eye',
   },
   {

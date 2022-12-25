@@ -62,7 +62,7 @@ const Donar = ({ request }) => {
               Requested {moment(createdAt?.toDate()).fromNow()}
             </Card.Text>
 
-            {uid === userInfo.uid ? (
+            {uid === userInfo.uid || userInfo.isAdmin ? (
               <ButtonGroup>
                 <Link to={`/feed/${id}`}>
                   <Button className='me-2'>

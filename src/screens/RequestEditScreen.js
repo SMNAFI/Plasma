@@ -7,6 +7,7 @@ import Message from '../components/Message'
 import { useParams } from 'react-router-dom'
 import SubHero from './../components/SubHero/SubHero'
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 const RequestEditScreen = () => {
   const { id } = useParams()
@@ -100,7 +101,11 @@ const RequestEditScreen = () => {
       <SubHero title={'Edit Your Request'} text={`Request Id: ${id}`} />
 
       <Container className='mx-auto my-5' style={{ maxWidth: '750px' }}>
-        {success && <Message>Request updated successfully</Message>}
+        {success && (
+          <Message>
+            Request updated successfully. <Link to='/feed'>Go to feed.</Link>
+          </Message>
+        )}
         {error && <Message variant='danger'>{error}</Message>}
         {loading && <Loader />}
 

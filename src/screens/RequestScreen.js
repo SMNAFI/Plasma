@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux'
 import Required from './../components/Required'
 import SubHero from '../components/SubHero/SubHero'
 import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const RequestPage = () => {
   const [problem, setProblem] = useState('')
@@ -78,6 +79,12 @@ const RequestPage = () => {
 
       <Container style={{ maxWidth: '800px' }} className='my-5'>
         {success && <Message>Request posted successfully</Message>}
+        {(!userInfo.name || !userInfo.phone) && (
+          <Message variant='danger'>
+            Please complete your profile first.{' '}
+            <Link to='/profile'>Go to profile</Link>
+          </Message>
+        )}
         {error && <Message variant='danger'>{error}</Message>}
         {loading && <Loader />}
 
@@ -110,7 +117,7 @@ const RequestPage = () => {
                   onChange={(e) => setBloodGroup(e.target.value)}
                   required={true}
                 >
-                  <option></option>
+                  <option disabled></option>
                   <option>A+</option>
                   <option>A-</option>
                   <option>B+</option>

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { doc, onSnapshot } from 'firebase/firestore'
+import { doc, getDoc, onSnapshot } from 'firebase/firestore'
 import { db } from '../firebase'
 import { useParams } from 'react-router-dom'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import { Button, Card, Col, Container, Row } from 'react-bootstrap'
+import { Button, Card, Col, Container, Row, Accordion } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import ap from '../assets/images/a+.svg'
@@ -20,6 +20,7 @@ import SubHero from './../components/SubHero/SubHero'
 function RequestDetailsScreen() {
   const { id } = useParams()
   const [requestInfo, setRequestInfo] = useState({})
+  const [requestUserInfo, setRequestUserInfo] = useState({})
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
@@ -52,11 +53,20 @@ function RequestDetailsScreen() {
   else img = abn
 
   useEffect(() => {
+    const fetchUser = async () => {
+      if (uid) {
+        const res = await getDoc(doc(db, 'users', uid))
+        setRequestUserInfo({ name: res.data().name, phone: res.data().phone })
+      }
+    }
+
     const unsub = onSnapshot(
       doc(db, 'requests', id),
       (doc) => {
         setLoading(false)
         setRequestInfo({ id: doc.id, ...doc.data() })
+
+        fetchUser()
       },
       (error) => {
         console.log(error)
@@ -67,7 +77,7 @@ function RequestDetailsScreen() {
     return () => {
       unsub()
     }
-  }, [id])
+  }, [id, uid])
 
   return (
     <>
@@ -116,8 +126,26 @@ function RequestDetailsScreen() {
                 </Row>
               </Card.Body>
 
-              {uid === userInfo.uid && (
-                <div className='text-center mt-3'>
+              <Accordion className='mt-3'>
+                <Accordion.Item eventKey='0'>
+                  <Accordion.Header>
+                    <p style={{ lineHeight: 0 }}>Request user's info</p>
+                  </Accordion.Header>
+
+                  <Accordion.Body>
+                    <p>
+                      <span className='text-bold'>Name: </span>{' '}
+                      {requestUserInfo.name}
+                    </p>
+                    <Card.Text>
+                      Contuct Number: {requestUserInfo.phone}
+                    </Card.Text>
+                  </Accordion.Body>
+                </Accordion.Item>
+              </Accordion>
+
+              {(uid === userInfo.uid || userInfo.isAdmin) && (
+                <div className='mt-3'>
                   <Link to={`/feed/${id}/edit`}>
                     <Button>
                       <i className='fa-solid fa-pen-to-square me-3'></i>

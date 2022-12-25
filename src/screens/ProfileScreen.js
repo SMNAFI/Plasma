@@ -143,8 +143,9 @@ const ProfileScreen = () => {
               <Col lg={6}>
                 <Form.Group controlId='phone' className='my-3'>
                   <Form.Label>
-                    Phone Number
-                    {isDonar && <Required />}
+                    Phone number
+                    {/* {isDonar && <Required />} */}
+                    <Required />
                   </Form.Label>
                   <Form.Control
                     type='text'
@@ -152,7 +153,8 @@ const ProfileScreen = () => {
                     onChange={(e) => setPhone(e.target.value)}
                     pattern='[0-9]{11}'
                     title='11 digits phone number'
-                    required={isDonar}
+                    // required={isDonar}
+                    required={true}
                   ></Form.Control>
                 </Form.Group>
               </Col>
@@ -162,7 +164,7 @@ const ProfileScreen = () => {
               <Col lg={6}>
                 <Form.Group controlId='bloodGroup' className='my-3'>
                   <Form.Label>
-                    Blood Group
+                    Blood group
                     {isDonar && <Required />}
                   </Form.Label>
                   <Form.Select
@@ -193,7 +195,7 @@ const ProfileScreen = () => {
                     onChange={(e) => setStatus(e.target.value)}
                     required={true}
                   >
-                    <option></option>
+                    <option disabled></option>
                     <option>Want to donate</option>
                     <option>Not available now</option>
                   </Form.Select>
@@ -204,7 +206,9 @@ const ProfileScreen = () => {
             <Row>
               <Col lg={6}>
                 <Form.Group controlId='numDonation' className='my-3'>
-                  <Form.Label>How many times did you donate blood?</Form.Label>
+                  <Form.Label>
+                    How many times did you donate blood before?
+                  </Form.Label>
                   <Form.Control
                     type='number'
                     placeholder='Number of previous dontion'
@@ -217,7 +221,7 @@ const ProfileScreen = () => {
               </Col>
               <Col lg={6}>
                 <Form.Group controlId='lastDonation' className='my-3'>
-                  <Form.Label>Last Donation Date</Form.Label>
+                  <Form.Label>Last donation date</Form.Label>
                   <Form.Control
                     type='date'
                     placeholder='Date'

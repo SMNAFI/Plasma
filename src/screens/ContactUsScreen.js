@@ -1,11 +1,10 @@
 import React, { useRef, useState } from 'react'
 import emailjs from '@emailjs/browser'
 import { Row, Col, Container } from 'react-bootstrap'
-import Loader from '../../components/Loader'
-import Message from '../../components/Message'
-import './ContactUsScreen.css'
-import SubHero from '../../components/SubHero/SubHero'
-import Required from './../../components/Required'
+import Loader from '../components/Loader'
+import Message from '../components/Message'
+import SubHero from '../components/SubHero/SubHero'
+import Required from '../components/Required'
 
 const ContactUsScreen = () => {
   const [user_name, setUser_name] = useState('')
@@ -76,7 +75,7 @@ const ContactUsScreen = () => {
                   name='user_name'
                   value={user_name}
                   onChange={(e) => setUser_name(e.target.value)}
-                  className='w-100 input'
+                  className='form-control'
                   required={true}
                 />
               </Col>
@@ -91,7 +90,7 @@ const ContactUsScreen = () => {
                   name='user_email'
                   value={user_email}
                   onChange={(e) => setUser_email(e.target.value)}
-                  className='w-100 input'
+                  className='form-control'
                   required={true}
                 />
               </Col>
@@ -107,7 +106,7 @@ const ContactUsScreen = () => {
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 rows='5'
-                className='w-100 input'
+                className='form-control'
                 required={true}
               />
             </div>
@@ -115,7 +114,7 @@ const ContactUsScreen = () => {
             <div className='text-center'>
               <button
                 type='submit'
-                className='btn-main'
+                className='btn-main mt-2'
                 style={{ width: '100%' }}
               >
                 Send Message

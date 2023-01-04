@@ -129,7 +129,7 @@ function RequestDetailsScreen() {
               <Accordion className='mt-3'>
                 <Accordion.Item eventKey='0'>
                   <Accordion.Header>
-                    <p style={{ lineHeight: 0 }}>Request user's info</p>
+                    <p style={{ lineHeight: 0 }}>Request owner info</p>
                   </Accordion.Header>
 
                   <Accordion.Body>

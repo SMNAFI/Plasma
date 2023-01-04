@@ -95,7 +95,6 @@ const RequestPage = () => {
               <Required />
             </Form.Label>
             <Form.Control
-              className='shadow-none'
               as='textarea'
               placeholder="Enter patient's problem"
               value={problem}
@@ -112,7 +111,6 @@ const RequestPage = () => {
                   <Required />
                 </Form.Label>
                 <Form.Select
-                  className='shadow-none'
                   value={bloodGroup}
                   onChange={(e) => setBloodGroup(e.target.value)}
                   required={true}
@@ -136,7 +134,6 @@ const RequestPage = () => {
                   <Required />
                 </Form.Label>
                 <Form.Control
-                  className='shadow-none'
                   type='number'
                   placeholder='Num of bages'
                   value={numBag}
@@ -156,7 +153,6 @@ const RequestPage = () => {
                   <Required />
                 </Form.Label>
                 <Form.Control
-                  className='shadow-none'
                   type='text'
                   placeholder='Enter location'
                   value={location}
@@ -172,7 +168,6 @@ const RequestPage = () => {
                   <Required />
                 </Form.Label>
                 <Form.Control
-                  className='shadow-none'
                   type='text'
                   placeholder='Enter district'
                   value={district}
@@ -191,7 +186,6 @@ const RequestPage = () => {
                   <Required />
                 </Form.Label>
                 <Form.Control
-                  className='shadow-none'
                   type='string'
                   placeholder='Time'
                   value={time}
@@ -207,7 +201,6 @@ const RequestPage = () => {
                   <Required />
                 </Form.Label>
                 <Form.Control
-                  className='shadow-none'
                   type='date'
                   placeholder='Date'
                   value={date}
@@ -224,7 +217,6 @@ const RequestPage = () => {
               <Required />
             </Form.Label>
             <Form.Control
-              className='shadow-none'
               type='text'
               placeholder='Contact Number'
               value={contact}

@@ -33,6 +33,7 @@ const ManageRequestsScreen = () => {
         const list = []
         querySnapshot.forEach((doc) => {
           list.push({ id: doc.id, ...doc.data() })
+          console.log(doc.data())
         })
 
         setRequests(list)
